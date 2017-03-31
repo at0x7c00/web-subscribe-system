@@ -14,7 +14,7 @@
 			+ path + "/";
 	request.setAttribute("basePath", basePath);
 	request.setAttribute("reqCtx", request);
-	request.setAttribute("systemTitle", "中国星品牌");
-	request.setAttribute("copyRight", "北京中视鼎丽传媒有限公司");
-	request.setAttribute("ficon", "favicon_chinastar");
+	request.setAttribute("systemTitle", "Web订阅系统");
+	request.setAttribute("copyRight", "huqiao.me");
+	request.setAttribute("ficon", "favicon");
 %>
