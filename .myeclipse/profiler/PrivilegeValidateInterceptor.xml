@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="app_preset_prof_preset_name">PrivilegeValidateInterceptor Launch Configuration</entry>
+<entry key="profiler.settings.sampling.interval">10</entry>
+<entry key="app_preset_prof_preset_filter_s"/>
+<entry key="app_preset_prof_preset_filter_p">me.huqiao.wss.asset.configuration.controller.*,&#13;
+me.huqiao.wss.asset.configuration.dao.*,&#13;
+me.huqiao.wss.asset.configuration.entity.*,&#13;
+me.huqiao.wss.asset.configuration.service.*,&#13;
+me.huqiao.wss.asset.manage.ci.controller.*,&#13;
+me.huqiao.wss.asset.manage.ci.dao.*,&#13;
+me.huqiao.wss.asset.manage.ci.entity.*,&#13;
+me.huqiao.wss.asset.manage.ci.service.*,&#13;
+me.huqiao.wss.asset.manage.datacenterdevice.controller.*,&#13;
+me.huqiao.wss.asset.manage.datacenterdevice.dao.*,&#13;
+me.huqiao.wss.asset.manage.datacenterdevice.entity.*,&#13;
+me.huqiao.wss.asset.manage.datacenterdevice.service.*,&#13;
+me.huqiao.wss.asset.manage.functionci.controller.*,&#13;
+me.huqiao.wss.asset.manage.functionci.dao.*,&#13;
+me.huqiao.wss.asset.manage.functionci.entity.*,&#13;
+me.huqiao.wss.asset.manage.functionci.service.*,&#13;
+me.huqiao.wss.asset.manage.material.controller.*,&#13;
+me.huqiao.wss.asset.manage.material.dao.*,&#13;
+me.huqiao.wss.asset.manage.material.entity.*,&#13;
+me.huqiao.wss.asset.manage.material.service.*,&#13;
+me.huqiao.wss.asset.manage.networkdevice.controller.*,&#13;
+me.huqiao.wss.asset.manage.networkdevice.dao.*,&#13;
+me.huqiao.wss.asset.manage.networkdevice.entity.*,&#13;
+me.huqiao.wss.asset.manage.networkdevice.service.*,&#13;
+me.huqiao.wss.asset.manage.physicaldevice.controller.*,&#13;
+me.huqiao.wss.asset.manage.physicaldevice.dao.*,&#13;
+me.huqiao.wss.asset.manage.physicaldevice.entity.*,&#13;
+me.huqiao.wss.asset.manage.physicaldevice.service.*,&#13;
+me.huqiao.wss.asset.manage.software.controller.*,&#13;
+me.huqiao.wss.asset.manage.software.dao.*,&#13;
+me.huqiao.wss.asset.manage.software.entity.*,&#13;
+me.huqiao.wss.asset.manage.software.service.*,&#13;
+me.huqiao.wss.common.controller.*,&#13;
+me.huqiao.wss.common.dao.*,&#13;
+me.huqiao.wss.common.entity.*,&#13;
+me.huqiao.wss.common.service.*,&#13;
+me.huqiao.wss.deployment.manage.controller.*,&#13;
+me.huqiao.wss.deployment.manage.dao.*,&#13;
+me.huqiao.wss.deployment.manage.entity.*,&#13;
+me.huqiao.wss.deployment.manage.service.*,&#13;
+me.huqiao.wss.history.entity.*,&#13;
+me.huqiao.wss.i18n.*,&#13;
+me.huqiao.wss.interceptor.*,&#13;
+me.huqiao.wss.listener.*,&#13;
+me.huqiao.wss.servlet.*,&#13;
+me.huqiao.wss.sys.controller.*,&#13;
+me.huqiao.wss.sys.dao.*,&#13;
+me.huqiao.wss.sys.entity.*,&#13;
+me.huqiao.wss.sys.service.*,&#13;
+me.huqiao.wss.tag.fns.*,&#13;
+me.huqiao.wss.taglib.*,&#13;
+me.huqiao.wss.ticket.configuration.controller.*,&#13;
+me.huqiao.wss.ticket.configuration.dao.*,&#13;
+me.huqiao.wss.ticket.configuration.entity.*,&#13;
+me.huqiao.wss.ticket.configuration.service.*,&#13;
+me.huqiao.wss.ticket.manage.controller.*,&#13;
+me.huqiao.wss.ticket.manage.dao.*,&#13;
+me.huqiao.wss.ticket.manage.entity.*,&#13;
+me.huqiao.wss.ticket.manage.service.*,&#13;
+me.huqiao.wss.util.*,&#13;
+com.novots.itsm.util.threadlocal.*</entry>
+<entry key="profiler.settings.n.profiled.threads.limit">32</entry>
+<entry key="app_preset_prof_preset_alloc_p">10</entry>
+<entry key="profiler.settings.instrument.method.invoke">true</entry>
+<entry key="app_preset_"/>
+<entry key="profiler.settings.obj.alloc.stack.sampling.depth">0</entry>
+<entry key="app_preset_prof_preset_samplingRefreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_stacks_p">false</entry>
+<entry key="app_preset_prof_preset_roots_p">me.huqiao.wss.asset.configuration.controller.**
+me.huqiao.wss.asset.configuration.dao.**
+me.huqiao.wss.asset.configuration.entity.**
+me.huqiao.wss.asset.configuration.service.**
+me.huqiao.wss.asset.manage.ci.controller.**
+me.huqiao.wss.asset.manage.ci.dao.**
+me.huqiao.wss.asset.manage.ci.entity.**
+me.huqiao.wss.asset.manage.ci.service.**
+me.huqiao.wss.asset.manage.datacenterdevice.controller.**
+me.huqiao.wss.asset.manage.datacenterdevice.dao.**
+me.huqiao.wss.asset.manage.datacenterdevice.entity.**
+me.huqiao.wss.asset.manage.datacenterdevice.service.**
+me.huqiao.wss.asset.manage.functionci.controller.**
+me.huqiao.wss.asset.manage.functionci.dao.**
+me.huqiao.wss.asset.manage.functionci.entity.**
+me.huqiao.wss.asset.manage.functionci.service.**
+me.huqiao.wss.asset.manage.material.controller.**
+me.huqiao.wss.asset.manage.material.dao.**
+me.huqiao.wss.asset.manage.material.entity.**
+me.huqiao.wss.asset.manage.material.service.**
+me.huqiao.wss.asset.manage.networkdevice.controller.**
+me.huqiao.wss.asset.manage.networkdevice.dao.**
+me.huqiao.wss.asset.manage.networkdevice.entity.**
+me.huqiao.wss.asset.manage.networkdevice.service.**
+me.huqiao.wss.asset.manage.physicaldevice.controller.**
+me.huqiao.wss.asset.manage.physicaldevice.dao.**
+me.huqiao.wss.asset.manage.physicaldevice.entity.**
+me.huqiao.wss.asset.manage.physicaldevice.service.**
+me.huqiao.wss.asset.manage.software.controller.**
+me.huqiao.wss.asset.manage.software.dao.**
+me.huqiao.wss.asset.manage.software.entity.**
+me.huqiao.wss.asset.manage.software.service.**
+me.huqiao.wss.common.controller.**
+me.huqiao.wss.common.dao.**
+me.huqiao.wss.common.entity.**
+me.huqiao.wss.common.service.**
+me.huqiao.wss.deployment.manage.controller.**
+me.huqiao.wss.deployment.manage.dao.**
+me.huqiao.wss.deployment.manage.entity.**
+me.huqiao.wss.deployment.manage.service.**
+me.huqiao.wss.history.entity.**
+me.huqiao.wss.i18n.**
+me.huqiao.wss.interceptor.**
+me.huqiao.wss.listener.**
+me.huqiao.wss.servlet.**
+me.huqiao.wss.sys.controller.**
+me.huqiao.wss.sys.dao.**
+me.huqiao.wss.sys.entity.**
+me.huqiao.wss.sys.service.**
+me.huqiao.wss.tag.fns.**
+me.huqiao.wss.taglib.**
+me.huqiao.wss.ticket.configuration.controller.**
+me.huqiao.wss.ticket.configuration.dao.**
+me.huqiao.wss.ticket.configuration.entity.**
+me.huqiao.wss.ticket.configuration.service.**
+me.huqiao.wss.ticket.manage.controller.**
+me.huqiao.wss.ticket.manage.dao.**
+me.huqiao.wss.ticket.manage.entity.**
+me.huqiao.wss.ticket.manage.service.**
+me.huqiao.wss.util.**
+com.novots.itsm.util.threadlocal.**
+</entry>
+<entry key="profiler.settings.instrument.empty.methods">false</entry>
+<entry key="myeclipse.profiling.mode">0</entry>
+<entry key="profiler.settings.istrument.getter.setter.methods">false</entry>
+<entry key="app_preset_prof_preset_samplingRate_s">100</entry>
+<entry key="profiler.settings.instr.scheme">1</entry>
+<entry key="profiler.settings.cpu.profiling.type">0</entry>
+<entry key="app_preset_prof_preset_selector"/>
+<entry key="app_preset_prof_preset_filterMode_s">true</entry>
+<entry key="app_preset_prof_preset_runnables_p">true</entry>
+<entry key="app_preset_prof_preset_refreshRate_s">1000</entry>
+<entry key="app_preset_prof_preset_filterMode_p">false</entry>
+<entry key="app_preset_prof_preset_memoryMode_p">true</entry>
+</properties>

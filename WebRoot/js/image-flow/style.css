@@ -1,0 +1,62 @@
+    #image-flow{
+      width: 1150px;
+      height: 190px;
+      margin: 1px auto;
+      background-color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+    #image-flow ul{
+      position:absolute;
+      left:0;
+      top:0;
+      overflow: hidden;
+      background-color: #fff;
+      margin:0px;
+    }
+ 
+    #image-flow ul li{
+      float: left;
+      width: 235px;
+      height: 190px;
+      list-style: none;
+      padding:0px 15px;
+    }
+    
+    #image-flow-ul a{
+    	color:black;
+    }
+    #image-flow-ul img{
+    	width:235px;
+    	height:160px;
+    }
+    
+    #image-flow-ul a span{
+    	display:block;
+    	text-align:center;
+    }
+    
+    .module-content .btn{
+    	position: absolute;
+    	top:80px;
+    	width:35px;
+    	height:40px;
+    	z-index:999;
+    	cursor:pointer;
+    	border:1px solid transparent;
+    }
+    .module-content .btn:hover{
+    	border:1px solid #ddd;
+    }
+    
+   .module-content .btn.btn-left{
+    	left:5px;
+    	background: url(./img/butt-left.png)no-repeat;
+    	background-position: 2px 6px;
+    }
+    
+     .module-content .btn.btn-right{
+    	right:5px; 
+    	background: url(./img/butt-right.png)no-repeat;
+    	background-position: 2px 6px;
+    }

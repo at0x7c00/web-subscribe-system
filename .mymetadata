@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="catfish"
+  id="myeclipse.1430372942943"
+  context-root="/catfish"
+  j2ee-spec="6.0"
+  archive="catfish.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
