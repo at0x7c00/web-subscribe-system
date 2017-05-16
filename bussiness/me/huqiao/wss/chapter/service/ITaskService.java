@@ -46,4 +46,14 @@ public interface ITaskService extends IBaseService<Task> {
 	 * 
 	 */
 	List<Task> queryById(Integer[] ids);
+	
+	public void init();
+	
+	public List<Task> findAllActive();
+	
+	public void updateToStop(Task task);
+	
+	public void updateToStart(Task task);
+	
+	public void execute(Task task);
 }

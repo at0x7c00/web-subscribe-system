@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import me.huqiao.wss.common.entity.enumtype.UseStatus;
+import me.huqiao.wss.sys.entity.enumtype.YesNo;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.hibernate.annotations.Fetch;
@@ -56,6 +57,7 @@ private Date createTimeStart;
 private Date createTimeEnd;
 /**阅读状态*/
 private UseStatus status;
+private YesNo favourite;
 	/**MD5管理ID*/
 	protected String manageKey;
 	/**@return String MD5管理ID */
@@ -87,6 +89,20 @@ public String getTitle(){
 public void setUrl(String url){
     this.url = url;
 }
+
+@Transient
+public String getAccessUrl(){
+	if(this.isRelativeUrl()){
+		if(this.isRootRelativeUrl()){
+			return  this.getTask().getRootUrl() +  this.getUrl();
+		}else{
+			return  this.getTask().getUrl() +  this.getUrl();
+		}
+	}else{
+		return  this.getUrl();
+	}
+}
+
 /**
  * @return String URL 
  */
@@ -94,6 +110,17 @@ public void setUrl(String url){
 public String getUrl(){
 		return this.url;	
 }
+
+@Transient
+public boolean isRelativeUrl(){
+	return !url.startsWith("http");
+}
+
+@Transient
+public boolean isRootRelativeUrl(){
+	return url.startsWith("/");
+}
+
 /**
  * @param task 要设置的所属任务
  */
@@ -206,4 +233,15 @@ public UseStatus getStatus(){
 	public String toString() {
 		return "GatherResult [manageKey=" + manageKey + "]";
 	}
+	
+	@Column(name="_favourite",nullable=true,columnDefinition="enum('Yes','No')")
+	@Enumerated(EnumType.STRING)
+	public YesNo getFavourite() {
+		return favourite;
+	}
+	public void setFavourite(YesNo favourite) {
+		this.favourite = favourite;
+	}
+	
+	
 }

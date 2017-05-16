@@ -70,4 +70,5 @@ public interface ITaskDao extends IBaseDao<Task> {
 	 * @return List<Task>  采集任务列表
      */
 	List<Task> findById(Integer[] ids);
+	List<Task> findAllActive();
 }

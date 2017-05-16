@@ -9,16 +9,8 @@
 				</section>
 					<section class="col col-2">
 						<label class="input"> 
-										<form:input path="url"
-											id="gatherResult.url"
-											cssClass="textInput"
-											maxlength="255"  size="12" placeholder="${nfn:i18nMessage(reqCtx,'props.me.huqiao.wss.chapter.entity.GatherResult.url')}"/>
-				</label>
-				</section>
-					<section class="col col-2">
-						<label class="input"> 
 										<label class="select">
-										<form:select id="task" path="task" cssClass="required comboxed">
+										<form:select id="taskSelect" path="task" cssClass="required comboxed">
 										<option value="">-<spring:message code="props.me.huqiao.wss.chapter.entity.GatherResult.task"/>-</option>
 											<form:options  items="${taskList}" itemValue="manageKey" itemLabel="name"/>
 										</form:select>

@@ -70,4 +70,6 @@ public interface IGatherResultDao extends IBaseDao<GatherResult> {
 	 * @return List<GatherResult>  采集结果列表
      */
 	List<GatherResult> findById(Integer[] ids);
+	
+	boolean existed(GatherResult gr);
 }

@@ -1,11 +1,2 @@
-/META-INF
-/application.properties
-/applicationContext.xml
-/jdbc.properties
-/log4j.properties
 /me
-/messages_en.properties
-/messages_zh.properties
 /org
-/schedule-task.properties
-/spring-servlet.xml

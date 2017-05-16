@@ -4,6 +4,7 @@ import java.util.List;
 
 import me.huqiao.wss.chapter.dao.ITaskDao;
 import me.huqiao.wss.chapter.entity.Task;
+import me.huqiao.wss.chapter.entity.enumtype.TaskStatus;
 import me.huqiao.wss.common.dao.impl.BaseDaoImpl;
 import me.huqiao.wss.history.entity.HistoryRecord;
 import me.huqiao.wss.history.entity.TestRevisionEntity;
@@ -163,4 +164,10 @@ public class TaskDaoImpl extends BaseDaoImpl<Task> implements ITaskDao {
 		.add(Restrictions.in("id", ids));
 		return criteria.list();
 	}
+	@Override
+	public List<Task> findAllActive() {
+		Criteria criteria = getSession().createCriteria(Task.class).add(Restrictions.and(Restrictions.ne("status", TaskStatus.NotStart), Restrictions.ne("status", TaskStatus.Ended)));
+		return criteria.list();
+	}
+	
 }

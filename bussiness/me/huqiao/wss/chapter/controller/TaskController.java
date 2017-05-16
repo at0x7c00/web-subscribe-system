@@ -12,6 +12,7 @@ import me.huqiao.wss.chapter.service.ITaskService;
 import me.huqiao.wss.common.controller.BaseController;
 import me.huqiao.wss.common.entity.Select2;
 import me.huqiao.wss.util.Md5Util;
+import me.huqiao.wss.util.StringUtil;
 import me.huqiao.wss.util.web.JsonResult;
 import me.huqiao.wss.util.web.Page;
 
@@ -111,14 +112,9 @@ public class TaskController  extends BaseController {
 	@RequestParam(value = "callBack",required = false)String callBack,
 	BindingResult result) {
     	JsonResult jsonResult = new JsonResult();
-    	//默认系统时间类型保存
-	/*
-		#ONE_TO_MANY_VALUE_SAVE_ADD
-	*/
-	    //保存多对多关联关系
-	//保持一对多关联关系
-	task.setManageKey(Md5Util.getManageKey());
+    	task.setManageKey(Md5Util.getManageKey());
     	taskService.add(task);
+    	taskService.updateToStart(task);
         jsonResult.setMessage(getI18NMessage(request, "base.common.controller.operate.add.success"));
         return jsonResult;
     }
@@ -301,7 +297,7 @@ public class TaskController  extends BaseController {
 	 */
 	@RequestMapping(value="/queryById")
 	@ResponseBody
-public List<Task> queryById(Integer[] ids,HttpServletResponse response) {
+	public List<Task> queryById(Integer[] ids,HttpServletResponse response) {
 		List<Task> taskList = taskService.queryById(ids);
 		return taskList;
 	}
@@ -347,4 +343,41 @@ public String tabAddForm(
 		request.setAttribute("propName", propName);
 		return "task/tab-detail-form";
 	}
+	
+	@RequestMapping(value = "/start", method = RequestMethod.GET)
+	@ResponseBody
+	public JsonResult start(HttpServletRequest request,
+			@ModelAttribute(value = "task") Task task,
+			@RequestParam(value = "taskNoForCancel",required = false) String taskNoForCancel) {
+		JsonResult jsonResult = new JsonResult();
+		
+		if(StringUtil.isNotEmpty(taskNoForCancel)){
+			Task taskForCancel = taskService.getEntityByProperty(Task.class, "manageKey", taskNoForCancel);
+			if(taskForCancel!=null){
+				taskService.updateToStop(task);
+			}
+		}
+		
+		try{
+			taskService.updateToStart(task);
+		}catch(Exception e){
+			return JsonResult.error("启动任务时失败!");
+		}
+		jsonResult.setMessage("启动任务成功!");
+		return jsonResult;
+	}
+	
+	@RequestMapping(value = "/stop", method = RequestMethod.GET)
+	@ResponseBody
+	public JsonResult stop(HttpServletRequest request,@ModelAttribute(value = "task") Task task) {
+		JsonResult jsonResult = new JsonResult();
+		try{
+			taskService.updateToStop(task);
+		}catch(Exception e){
+			return JsonResult.error("停止任务时失败!");
+		}
+		jsonResult.setMessage("停止任务成功!");
+		return jsonResult;
+	}
+	
 }

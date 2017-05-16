@@ -46,4 +46,5 @@ public interface IGatherResultService extends IBaseService<GatherResult> {
 	 * 
 	 */
 	List<GatherResult> queryById(Integer[] ids);
+	public boolean existed(GatherResult gr);
 }

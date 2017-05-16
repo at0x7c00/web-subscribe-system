@@ -10,6 +10,7 @@ import me.huqiao.wss.history.entity.TestRevisionEntity;
 import me.huqiao.wss.util.web.Page;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
@@ -136,6 +137,9 @@ criteria.add(Restrictions.le("createTime",gatherResult.getCreateTimeEnd()));
 ){
 		criteria.add(Restrictions.eq("status",gatherResult.getStatus()));
 }
+       if(gatherResult.getFavourite()!=null){
+    	   criteria.add(Restrictions.eqOrIsNull("favourite", gatherResult.getFavourite()));
+       }
     }
 	@Override
 	public GatherResult findByVersion(Integer version) {
@@ -167,5 +171,11 @@ criteria.add(Restrictions.le("createTime",gatherResult.getCreateTimeEnd()));
 		Criteria criteria = getSession().createCriteria(GatherResult.class)
 		.add(Restrictions.in("id", ids));
 		return criteria.list();
+	}
+	@Override
+	public boolean existed(GatherResult gr) {
+		Query query = getSession().createQuery("select gr from me.huqiao.wss.chapter.entity.GatherResult gr where gr.title=:title");
+		query.setParameter("title", gr.getTitle());
+		return query.list().size()>0;
 	}
 }

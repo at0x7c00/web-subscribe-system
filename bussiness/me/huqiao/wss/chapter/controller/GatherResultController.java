@@ -15,6 +15,7 @@ import me.huqiao.wss.chapter.service.ITaskService;
 import me.huqiao.wss.common.controller.BaseController;
 import me.huqiao.wss.common.entity.Select2;
 import me.huqiao.wss.common.entity.enumtype.UseStatus;
+import me.huqiao.wss.sys.entity.enumtype.YesNo;
 import me.huqiao.wss.util.Md5Util;
 import me.huqiao.wss.util.web.JsonResult;
 import me.huqiao.wss.util.web.Page;
@@ -184,6 +185,30 @@ request.setAttribute("useStatusMap",UseStatus.useStatusMap);
     	//复杂关联关系数据准备
         listFormParam(request,gatherResult,null);
     }
+    
+    
+    @RequestMapping(value="/view",method=RequestMethod.GET)
+    public String view(@ModelAttribute(value="gatherResult") GatherResult gatherResult,HttpServletRequest request){
+    	gatherResult.setStatus(UseStatus.UnUse);
+    	gatherResultService.update(gatherResult);
+    	return "redirect:" + gatherResult.getAccessUrl();
+    }
+    
+    
+    @RequestMapping(value="/mark",method=RequestMethod.GET)
+    @ResponseBody
+    public JsonResult mark(HttpServletRequest request,
+	@ModelAttribute(value="gatherResult") GatherResult gatherResult,
+	BindingResult result) {
+    	JsonResult jsonResult = new JsonResult();
+    	if(!validate(jsonResult,result)){
+    		return jsonResult;
+    	}
+        gatherResultService.update(gatherResult);
+        jsonResult.setMessage(getI18NMessage(request, "base.common.controller.operate.update.success"));
+        return jsonResult;
+    }
+    
 	/**
      * 删除单个采集结果对象
      * @param request HttpServletRequest对象
@@ -233,6 +258,27 @@ request.setAttribute("useStatusMap",UseStatus.useStatusMap);
 			}
     	}
 		jsonResult.setMessage(getI18NMessage(request, "base.common.controller.operate.delete.success"));
+    	return jsonResult;
+    } 
+    @RequestMapping(value="/markAsRead",method=RequestMethod.POST)
+    @ResponseBody
+    public JsonResult markAsRead(HttpServletRequest request,@RequestParam("manageKeys") String[] manageKeys) {
+    	GatherResult gatherResult = null;
+    	JsonResult jsonResult = new JsonResult();
+    	for(String manageKey : manageKeys){
+    		try {
+    			gatherResult = gatherResultService.getEntityByProperty(GatherResult.class,"manageKey",manageKey);
+    			gatherResult.setStatus(UseStatus.UnUse);
+    			gatherResultService.update(gatherResult);
+    		}catch (RuntimeException re) {
+    			jsonResult.setMessage(getI18NMessage(request, "base.common.controller.operate.delete.inuse"));
+    			return jsonResult;
+    		}catch (Exception e) {
+    			jsonResult.setMessage(e.toString());
+    			return jsonResult;
+    		}
+    	}
+    	jsonResult.setMessage(getI18NMessage(request, "base.common.controller.operate.delete.success"));
     	return jsonResult;
     } 
 	 /**

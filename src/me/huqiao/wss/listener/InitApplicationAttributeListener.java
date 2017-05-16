@@ -4,6 +4,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import me.huqiao.wss.chapter.service.ITaskService;
 import me.huqiao.wss.sys.entity.Config;
 import me.huqiao.wss.sys.service.IConfigService;
 import me.huqiao.wss.sys.service.impl.MemoryStorage;
@@ -64,6 +65,9 @@ public class InitApplicationAttributeListener implements ServletContextListener{
 		SYS_CONFIG_MAIL_SEND_HOST_ACCESS_DEFAULT_SENDER = configService.getById(Config.class, Config.SYS_CONFIG_MAIL_SEND_HOST_ACCESS_DEFAULT_SENDER);
 	    
 	    MemoryStorage.getInstance().init(sce.getServletContext().getRealPath("/WEB-INF/classes/memorystorage.db"));
+	    
+	    ITaskService taskService = wac.getBean(ITaskService.class);
+	    taskService.init();
 		
 		
 	}

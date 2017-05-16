@@ -1,13 +1,21 @@
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-	<td>${tempBean.id}</td>
+	<td width="50">${tempBean.id}</td>
+	<td width="20px" style="text-align:center;">
+	
+	<a href="javascript:void(0);" onclick="favouriteMark(this,'${tempBean.manageKey}')">
+	<i class="fa ${tempBean.favourite eq 'Yes' ? 'fa-heart red' : 'fa-heart-o' }"></i>
+	</a>
+	</td>
 		<td>
+		<span class="label label-success hspan">
+		${tempBean.task.name}
+		</span>
+		<a href="${basePath}gatherResult/view.do?manageKey=${tempBean.manageKey}"  target="_blank" class="link ${tempBean.status eq 'InUse' ? 'a-new' :'a-old'}" style="">
 		${tempBean.title}
+		</a>
+		
+		<fmt:formatDate value="${tempBean.createTime}" pattern="MM-dd HH:mm"/>
+		
 		</td>
-		<td>
-		${tempBean.url}
-		</td>
-			<td>${tempBean.task.name}</td>
-			<td><fmt:formatDate value="${tempBean.createTime}" pattern="${applicationScope.EN_YEAR_MONTH_DAY_HOUR_MIN_SEC}"/></td>
-		<td>
-		${useStatusMap[tempBean.status]}
-		</td>
+		
+

@@ -6,6 +6,7 @@
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/test"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/bussiness"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/config"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/util"/>
         <property name="java-output-path" value="/catfish/WebRoot/WEB-INF/classes"/>
         <property name="me-merge-utility-modules" value="true"/>
         <property name="context-root" value="/wss"/>

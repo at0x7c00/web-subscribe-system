@@ -24,16 +24,16 @@ public class GatherResultServiceImpl extends BaseServiceImpl<GatherResult> imple
     @Override
     public Page<GatherResult> getListPage(GatherResult gatherResult,Page pageInfo) {
       	pageInfo.setTotalCount(gatherResultDao.findListRowCount(gatherResult).intValue());
-		pageInfo.setOrderField(pageInfo.getOrderField() == null ? "id": pageInfo.getOrderField());
-		pageInfo.setOrderDirection(pageInfo.getOrderDirection() == null ? "asc": pageInfo.getOrderDirection());
+		pageInfo.setOrderField(pageInfo.getOrderField() == null ? "createTime": pageInfo.getOrderField());
+		pageInfo.setOrderDirection(pageInfo.getOrderDirection() == null ? "desc": pageInfo.getOrderDirection());
 		pageInfo.setList(gatherResultDao.findListPage(gatherResult,pageInfo));
         return pageInfo;
     }
 	@Override
 	public Page<HistoryRecord<GatherResult>> getHistoryListPage(GatherResult gatherResult, Page pageInfo) {
 		pageInfo.setTotalCount(gatherResultDao.findHistoryListRowCount(gatherResult,pageInfo).intValue());
-		pageInfo.setOrderField(pageInfo.getOrderField() == null ? "id": pageInfo.getOrderField());
-		pageInfo.setOrderDirection(pageInfo.getOrderDirection() == null ? "asc": pageInfo.getOrderDirection());
+		pageInfo.setOrderField(pageInfo.getOrderField() == null ? "createTime": pageInfo.getOrderField());
+		pageInfo.setOrderDirection(pageInfo.getOrderDirection() == null ? "desc": pageInfo.getOrderDirection());
 		pageInfo.setList(gatherResultDao.findHistoryListPage(gatherResult,pageInfo));
         return pageInfo;
 	}
@@ -52,5 +52,10 @@ public class GatherResultServiceImpl extends BaseServiceImpl<GatherResult> imple
 	@Override
 	public List<GatherResult> queryById(Integer[] ids) {
 		return gatherResultDao.findById(ids);
+	}
+	
+	@Override
+	public boolean existed(GatherResult gr) {
+		return gatherResultDao.existed(gr);
 	}
 }

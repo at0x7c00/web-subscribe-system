@@ -63,7 +63,9 @@ public class PrivilegeValidateInterceptor extends HandlerInterceptorAdapter {
 		"filee/dialogToAdd.do",
 		"area/getProvincesByArea.do",
 		"agent/tradeRecord.do",
-		"user/updatePassword.do"
+		"user/updatePassword.do",
+		"gatherResult/markAsRead.do",
+		"gatherResult/mark.do"
 	};
 	
 	//继承关系权限

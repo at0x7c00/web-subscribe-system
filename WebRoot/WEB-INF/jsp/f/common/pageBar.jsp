@@ -1,11 +1,11 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <div class="dt-row">
 <div  class="row" >
-	<div class="col-sm-4" style="padding-top:5px;">
-		<div class="dataTables_info" id="dt_basic_info">
+	<div class="col-sm-12 text-right">
+		<div class="dataTables_info hidden-xs" id="dt_basic_info" style="display:inline-block;float:left;">
 		&nbsp;&nbsp;&nbsp;<spring:message code="base.common.pagebar.display"/>
 		<select class="combox" name="numPerPage"
-			onchange="${(empty targetType) or (targetType eq 'navTab') ? 'navTabPageBreak':'dialogPageBreak'}({numPerPage:this.value})">
+			onchange="PageBreak({numPerPage:this.value})">
 			<option value="10"
 				<c:if test="${pageBean.numPerPage eq 10}">selected="selected"</c:if>>
 				10
@@ -29,9 +29,7 @@
 		</select>
 		<spring:message code="base.common.pagebar.unit"/>，<spring:message code="base.common.pagebar.total"/>${pageBean.totalCount}<spring:message code="base.common.pagebar.unit"/>
 		</div>
-	</div>
-	<div class="col-sm-8 text-right">
-		<div class="dataTables_paginate paging_bootstrap_full" style="padding-right:5px;">
+		<div class="dataTables_paginate paging_bootstrap_full" style="padding-right:5px;display:inline-block;float:right;">
 			<ul class="pagination">
 				<li class="first ${pageBean.pageNum eq 1 ?'disabled':''}" ><a href="#" data-page-value="1"><spring:message code="dwz.pagebar.first"></spring:message></a></li>
 				<li class="prev ${pageBean.pageNum eq 1 ?'disabled':''}"  ><a href="#" data-page-value="${pageBean.pageNum-1>0?pageBean.pageNum-1:1}"><spring:message code="dwz.pagebar.pre"/></a></li>

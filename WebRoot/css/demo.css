@@ -248,3 +248,23 @@
 		-webkit-box-shadow: 0 0px 12px rgba(0,0,0,0.15);
 	    box-shadow: 0 0px 12px rgba(0,0,0,0.15);
 	}
+	
+	.hspan{
+	display:inline-block !important; color:#fff !important; padding:2px 5px;margin-right:0px 10px;
+	}
+	
+	
+	.link{
+		font-size:18px;
+	}
+	.link.a-old{
+		color:gray;
+		font-weight:normal;
+	}
+	.link.a-new{
+		font-weight:bold;
+	}
+	
+	.fa.red{
+		color:red;
+	}
