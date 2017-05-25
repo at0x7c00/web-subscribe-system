@@ -6,7 +6,7 @@
 				${c.title }
 			</a>
 				<small>
-				<n:pv url="gatherResult/markxx.do">
+				<n:pv url="gatherResult/mark.do">
 				<i class="fa fa-heart${c.favourite eq 'Yes'?'':'-o' } fav" onclick="fav('${c.manageKey}',this);"></i>
 				</n:pv>
 				<em>

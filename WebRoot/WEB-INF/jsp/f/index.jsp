@@ -184,8 +184,7 @@
 				<div class="col-xs-12 col-sm-12 text-center">
 					<div class="txt-color-white inline-block">
 						<i class="txt-color-blueLight ">
-						© 2017 itkuaibao.cn
-						<br/>
+						©2017 itkuaibao.cn
 						京ICP备15056042号-2
 						<br/>
 						<br/>
