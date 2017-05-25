@@ -28,6 +28,9 @@ public class PrivilegeValidateTag  extends TagSupport{
 		/*if(1==1){
 			return EVAL_BODY_INCLUDE;
 		}*/
+		if(loginInfo==null){
+			return SKIP_BODY;
+		}
 		if(privilegeValidateInterceptor.hasPrivilege(loginInfo, url,false,null,null)!=null){
 			return EVAL_BODY_INCLUDE;
 		}else{

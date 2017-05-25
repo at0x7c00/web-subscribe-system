@@ -42,7 +42,7 @@ public class PrivilegeValidateInterceptor extends HandlerInterceptorAdapter {
     	"changeLocale.do",
     	"filee/viewPic.do",
     	"filee/downloadFile.do",
-    	"f/"
+    	"f/",
 	};
 	private static final String[] urlsWithLogin = new String[] {// 只需要登录就能拥有的权限
 		"home.do",
@@ -65,7 +65,7 @@ public class PrivilegeValidateInterceptor extends HandlerInterceptorAdapter {
 		"agent/tradeRecord.do",
 		"user/updatePassword.do",
 		"gatherResult/markAsRead.do",
-		"gatherResult/mark.do"
+		"gatherResult/mark.do",
 	};
 	
 	//继承关系权限

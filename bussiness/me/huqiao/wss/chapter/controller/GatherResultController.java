@@ -50,7 +50,7 @@ public class GatherResultController  extends BaseController {
          binder.registerCustomEditor(Task.class,new TaskEditor(taskService));
 	}
     //复杂关联关系的Service
-@Resource private ITaskService taskService;
+    @Resource private ITaskService taskService;
 		/**
 		  * 初始化ModelAttribute
 		  * @param manageKey md5管理ID （非空时自动加载指定对象）
