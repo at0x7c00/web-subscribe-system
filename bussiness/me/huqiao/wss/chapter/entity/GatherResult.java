@@ -288,14 +288,14 @@ public UseStatus getStatus(){
 		this.scoreAddIps = this.scoreAddIps.replace(ip, "");
 		this.scoreDeleteIps+="," + ip;
 	}
-	@Column(name = "score_add_ips",columnDefinition="text")
+	@Column(name = "score_add_ips",columnDefinition="text",nullable=true)
 	public String getScoreAddIps() {
 		return scoreAddIps;
 	}
 	public void setScoreAddIps(String scoreAddIps) {
 		this.scoreAddIps = scoreAddIps;
 	}
-	@Column(name = "score_delete_ips",columnDefinition="text")
+	@Column(name = "score_delete_ips",columnDefinition="text",nullable=true)
 	public String getScoreDeleteIps() {
 		return scoreDeleteIps;
 	}
