@@ -1,0 +1,119 @@
+.table-forum tr td h4{
+	font-size:18px;
+}
+.well{
+	background: #fbfbfb;
+    border: 1px solid #ddd;
+    box-shadow: 0 5px 30px #bda8a8;
+    -webkit-box-shadow: 0 5px 30px #bda8a8;
+    -moz-box-shadow: 0 5px 30px #bda8a8;
+    position: relative;
+}
+.back-to-top{
+	position: fixed;
+	bottom:50px;
+	right:5px;
+	display: inline-block;
+	border:1px solid #aaa;
+	padding:10px;
+	cursor:pointer;
+}
+.back-to-top:hover{
+	background: #111;
+	color:#fff;
+}
+.fav{
+	font-size:12px;
+	cursor:pointer;
+	padding-top:5px;
+}
+.fav:hover{
+	color:red;
+}
+.fav.fa-heart{
+	color:red;
+}
+#no-record-div{
+	display: none;
+	color:#aaa;
+	font-weight:bold;
+	text-align:center;
+}
+
+.divide-wrap {
+    position: relative;
+    height: 1px;
+    z-index: 1;
+}
+
+.colorbar-before {
+    content: "";
+    position: absolute;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 9;
+    background-color: #1b24ff;
+}
+
+.colorbar-after {
+    content: "";
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    z-index: 9;
+    background-color: #fd0371;
+}
+
+.colorbar {
+    width: 100%;
+    height: 100%;
+    z-index: 11;
+    background: url(./img/colorbar_623c2a2.png) center no-repeat;
+    position: relative;
+}
+
+.header{
+	background: #fff;
+	border-bottom: 1px solid rgba(30,35,42,.06);
+    box-shadow: 0 1px 3px 0 rgba(0,34,77,.05);
+    background-clip: content-box;
+}
+
+.big-mark{
+	z-index:1;
+	color:#efefef;
+	font-size:48px;
+	margin-top:-15px;
+	display:inline-block;
+	float:right;
+}
+.middle-mark{
+	z-index:1;
+	color:#ddd;
+	font-size:12px;
+	display:inline-block;
+	float:right;
+}
+.b-title{
+	margin-left:25px;
+}
+.co{
+	display: inline-block;
+	float:left;
+}
+.co div{
+}
+.co .fa{
+	font-size:22px;
+	line-height:.5em;
+}
+.co .count{
+	font-size:14px;
+	text-align:center;
+	margin-top:-5px;
+}
+.score{ 
+	cursor:pointer;
+}

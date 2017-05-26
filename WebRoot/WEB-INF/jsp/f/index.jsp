@@ -30,55 +30,12 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="${basePath}css/smartadmin-skins.css">
 
 		<link rel="stylesheet" type="text/css" media="screen" href="${basePath}css/demo.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="${basePath}css/core.css">
+		<link rel="stylesheet" type="text/css" media="screen" href="${basePath}js/toastr/toastr.min.css">
 
 		<!-- FAVICONS -->
 		<link rel="shortcut icon" href="${basePath}img/favicon/${ficon}.ico" type="image/x-icon">
 		<link rel="icon" href="${basePath}img/favicon/${ficon}.ico" type="image/x-icon">
-
-
-	   <style type="text/css">
-		.table-forum tr td h4{
-			font-size:18px;
-		}
-		.well{
-			background: #fbfbfb;
-		    border: 1px solid #ddd;
-		    box-shadow: 0 5px 30px #bda8a8;
-		    -webkit-box-shadow: 0 5px 30px #bda8a8;
-		    -moz-box-shadow: 0 5px 30px #bda8a8;
-		    position: relative;
-		}
-		.back-to-top{
-			position: fixed;
-			bottom:50px;
-			right:5px;
-			display: inline-block;
-			border:1px solid #aaa;
-			padding:10px;
-			cursor:pointer;
-		}
-		.back-to-top:hover{
-			background: #111;
-			color:#fff;
-		}
-		.fav{
-			font-size:12px;
-			cursor:pointer;
-			padding-top:5px;
-		}
-		.fav:hover{
-			color:red;
-		}
-		.fav.fa-heart{
-			color:red;
-		}
-		#no-record-div{
-			display: none;
-			color:#aaa;
-			font-weight:bold;
-			text-align:center;
-		}
-		</style>
 
 	</head>
 	
@@ -92,21 +49,28 @@
 			<input type="hidden" name="all" value="${all}"/>
 			<input type="hidden" name="tag" value="${task.manageKey}"/>
 			<input type="hidden" id="totalPageNum" name="totalPageNum" value="${pageBean.countPage}"/>
+			
+			<div class="header">
+				<div style="max-width:960px;margin:auto auto;">
+					<div class="row" style="height:70px;line-height:70px;">
+						<!-- col -->
+						<div class="col-xs-12 col-sm-3 col-md-4 col-lg-4">
+							<img src="img/logo.png" alt="logo">
+						</div>
+						<!-- end col -->
+					</div>
+				</div>
+			</div>
+			
+			<div class="divide-wrap" style="">
+				<div class="colorbar-before"></div>
+				<div class="colorbar-after"></div>
+				<div class="colorbar"></div>
+			</div>
 							
 			<!-- MAIN CONTENT -->
 			<div id="content" style="max-width:960px;margin:auto auto;">
 
-				<!-- Bread crumb is created dynamically -->
-				<!-- row -->
-				<div class="row" style="height:70px;line-height:70px;">
-					<!-- col -->
-					<div class="col-xs-12 col-sm-3 col-md-4 col-lg-4">
-						<img src="img/logo.png" alt="SmartAdmin">
-					</div>
-					<!-- end col -->
-				</div>
-				<!-- end row -->
-				
 				<!-- row -->
 				<div class="row">
 				
@@ -114,14 +78,54 @@
 				
 						<div class="well">
 				
-							<c:if test="${not empty task }">
+							<c:choose>
+							<c:when test="${not empty task }">
 								<div style="padding:15px 0px;">
 										<a href="../f/index.do" target="_self">
 										首页 
 										</a>
-										&gt; ${task.name} &nbsp;（共${pageBean.totalCount }篇文章）
+										
+										<c:choose>
+											<c:when test="${empty all }">
+												&gt; 
+												<a href="../f/index.do?all=t${not empty task ? '&tag=':''}${task.manageKey}">
+												 全部
+												</a> &gt; 精选
+											</c:when>
+											<c:otherwise>
+												 &gt; 全部
+												 &gt; 
+												<a href="../f/index.do${not empty task ? '?tag=':''}${task.manageKey}">
+												 精选
+												</a>
+											</c:otherwise>
+										</c:choose>
+										
+										&gt; ${task.name} 
+										&nbsp;（共${pageBean.totalCount }篇文章）
 								</div>
-							</c:if>
+							</c:when>
+							<c:otherwise>
+								<div style="padding:15px 0px;">
+									<c:choose>
+										<c:when test="${empty all }">
+											<a href="../f/index.do?all=t"> 全部
+											</a>
+											 &gt;
+											精选
+										</c:when>
+										<c:otherwise>
+											全部 &gt;
+											<a href="../f/index.do"> 
+											精选
+											</a>
+										</c:otherwise>
+									</c:choose>
+									&nbsp;（共${pageBean.totalCount }篇文章）
+								</div>
+							</c:otherwise>
+							</c:choose>
+							
 				
 							<table class="table table-striped table-forum" id="post-table">
 							<%--
@@ -138,7 +142,7 @@
 								
 									<c:if test="${empty pageBean.list }">
 										<tr>
-											<td colspan="4">
+											<td colspan="3">
 											 暂无记录
 											</td>
 										</tr>
@@ -209,6 +213,7 @@
 
 		<!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
 		<script src="${basePath}js/jquery/1.11.1/jquery.min.js"></script>
+		<script src="${basePath}js/toastr/toastr.min.js"></script>
 		<script type="text/javascript">
 		    var loadInt = null;
 			$(function(){
@@ -233,6 +238,24 @@
 					$(".back-to-top").click(function(){
 						$(document.body).animate({scrollTop:0},300);
 					});
+					
+					toastr.options = {
+					  "closeButton": false,
+					  "debug": false,
+					  "newestOnTop": false,
+					  "progressBar": false,
+					  "positionClass": "toast-top-right",
+					  "preventDuplicates": true,
+					  "onclick": null,
+					  "showDuration": "300",
+					  "hideDuration": "1000",
+					  "timeOut": "3000",
+					  "extendedTimeOut": "1000",
+					  "showEasing": "swing",
+					  "hideEasing": "linear",
+					  "showMethod": "fadeIn",
+					  "hideMethod": "fadeOut"
+					};
 			});
 			function getNewPage(){
 				var pageNum = $("#pageNum").val();
@@ -255,17 +278,41 @@
 				$("#loading").hide();
 			}
 			function fav(k,ele){
-				$.get("../gatherResult/mark.do?favourite=Yes&manageKey=" + k,function(d){
+				var favourite = $(ele).hasClass("fa-heart") ? 'No':'Yes';
+				$.get("../gatherResult/mark.do?favourite="+ favourite +"&manageKey=" + k,function(d){
 					if(d.statusCode!=200){
-						alert(d.message);
+						toastr['error'](d.message);
 					}else{
-						$(ele).removeClass("fa-heart-o").addClass("fa-heart");
+						if($(ele).hasClass("fa-heart-o")){
+							$(ele).removeClass("fa-heart-o").addClass("fa-heart");
+						}else{
+							$(ele).addClass("fa-heart-o").removeClass("fa-heart");
+						}
 					}
 				});
 			}
 			function showNoRecord(){
 				$("#no-record-div").show();
 			}
+			function scoreAdd(k){
+				$.get("../gatherResult/score/good.do?manageKey=" + k,function(d){
+					if(d=='already'){
+						toastr['info']("不能重复评价！");
+					}else{
+						$("#score_" + k).html(d);
+					}
+				});
+			}
+			function scoreDelete(k){
+				$.get("../gatherResult/score/bad.do?manageKey=" + k,function(d){
+					if(d=='already'){
+						toastr['info']("不能重复评价！");
+					}else{
+						$("#score_" + k).html(d);
+					}
+				});
+			}
+			
 		</script>
 	</body>
 

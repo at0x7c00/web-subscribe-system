@@ -408,4 +408,32 @@ public String tabAddForm(
 		request.setAttribute("propName", propName);
 		return "gatherResult/tab-detail-form";
 	}
+	
+	@RequestMapping(value = "/score/good")
+	@ResponseBody
+	public String good(@ModelAttribute(value="gatherResult") GatherResult gatherResult,
+			HttpServletRequest request){
+		String ip = request.getRemoteAddr();
+		if(gatherResult.getScoreAddIps()==null || !gatherResult.getScoreAddIps().contains(ip)){
+			gatherResult.addScore(ip);
+			gatherResultService.update(gatherResult);
+			return gatherResult.getScore() + "";
+		}else{
+			return "already";
+		}
+	}
+	
+	@RequestMapping(value = "/score/bad")
+	@ResponseBody
+	public String bad(@ModelAttribute(value="gatherResult") GatherResult gatherResult,
+			HttpServletRequest request){
+		String ip = request.getRemoteAddr();
+		if(gatherResult.getScoreDeleteIps()==null || !gatherResult.getScoreDeleteIps().contains(ip)){
+			gatherResult.deleteScore(ip);
+			gatherResultService.update(gatherResult);
+		}else{
+			return "already";
+		}
+		return gatherResult.getScore() + "";
+	}
 }

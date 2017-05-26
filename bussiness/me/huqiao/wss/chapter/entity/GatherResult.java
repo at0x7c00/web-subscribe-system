@@ -243,5 +243,63 @@ public UseStatus getStatus(){
 		this.favourite = favourite;
 	}
 	
+	public Integer score;
+	public String scoreAddIps;
+	public String scoreDeleteIps;
 	
+	@Column(name="score")
+	public Integer getScore() {
+		if(score==null){
+			score  = 0;
+		}
+		return score;
+	}
+	
+	public void setScore(Integer score) {
+		this.score = score;
+	}
+	
+	public void addScore(String ip){
+		if(this.score==null){
+			this.score = 0;
+		}
+		this.score += 1;
+		if(scoreAddIps==null){
+			scoreAddIps = "";
+		}
+		if(scoreDeleteIps==null){
+			scoreDeleteIps = "";
+		}
+		this.scoreDeleteIps = this.scoreDeleteIps.replace(ip, "");
+		this.scoreAddIps+="," + ip;
+	}
+	
+	public void deleteScore(String ip){
+		if(this.score==null){
+			this.score = 0;
+		}
+		this.score -= 1;
+		if(scoreAddIps==null){
+			scoreAddIps = "";
+		}
+		if(scoreDeleteIps==null){
+			scoreDeleteIps = "";
+		}
+		this.scoreAddIps = this.scoreAddIps.replace(ip, "");
+		this.scoreDeleteIps+="," + ip;
+	}
+	@Column(name = "score_add_ips",columnDefinition="text")
+	public String getScoreAddIps() {
+		return scoreAddIps;
+	}
+	public void setScoreAddIps(String scoreAddIps) {
+		this.scoreAddIps = scoreAddIps;
+	}
+	@Column(name = "score_delete_ips",columnDefinition="text")
+	public String getScoreDeleteIps() {
+		return scoreDeleteIps;
+	}
+	public void setScoreDeleteIps(String scoreDeleteIps) {
+		this.scoreDeleteIps = scoreDeleteIps;
+	}
 }
