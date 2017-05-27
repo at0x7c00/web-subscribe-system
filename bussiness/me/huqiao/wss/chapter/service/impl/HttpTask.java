@@ -10,6 +10,7 @@ import me.huqiao.wss.chapter.service.IGatherResultService;
 import me.huqiao.wss.chapter.service.ITaskService;
 import me.huqiao.wss.common.entity.enumtype.UseStatus;
 import me.huqiao.wss.common.listener.ApplicationContextAccessUtilListener;
+import me.huqiao.wss.sys.entity.enumtype.YesNo;
 import me.huqiao.wss.util.DateUtil;
 import me.huqiao.wss.util.Md5Util;
 
@@ -65,6 +66,9 @@ public class HttpTask implements Runnable {
 				gr.setTask(task);
 				gr.setTitle(title);
 				gr.setUrl(href);
+				if(task.getMarkAsFav()==YesNo.Yes){
+					gr.setFavourite(YesNo.Yes);
+				}
 				if(!grService.existed(gr)){
 					grService.add(gr);
 				}

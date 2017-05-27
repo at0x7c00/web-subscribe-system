@@ -11,6 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import me.huqiao.wss.chapter.entity.enumtype.TaskStatus;
+import me.huqiao.wss.sys.entity.enumtype.YesNo;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
@@ -62,7 +63,9 @@ public class Task {
 	
 	/** 状态 */
 	private TaskStatus status;
-
+	
+	private YesNo markAsFav;
+	
 	/** @return String MD5管理ID */
 	public String getManageKey() {
 		return manageKey;
@@ -239,6 +242,16 @@ public class Task {
 
 	public void addLog(String log) {
 		this.setLog((this.getLog()==null ?"" : this.getLog()) + "\r\n" + log);
+	}
+
+	@Column(name = "mark_as_fav", nullable = true, columnDefinition = "enum('Yes','No')")
+	@Enumerated(EnumType.STRING)
+	public YesNo getMarkAsFav() {
+		return markAsFav;
+	}
+
+	public void setMarkAsFav(YesNo markAsFav) {
+		this.markAsFav = markAsFav;
 	}
 	
 }
