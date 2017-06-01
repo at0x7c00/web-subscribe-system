@@ -66,7 +66,7 @@ public class PrivilegeValidateInterceptor extends HandlerInterceptorAdapter {
 		"agent/tradeRecord.do",
 		"user/updatePassword.do",
 		"gatherResult/markAsRead.do",
-		"gatherResult/mark.do",
+		"gatherResult/",
 	};
 	
 	//继承关系权限

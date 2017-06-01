@@ -8,18 +8,19 @@
 				<div onclick="scoreDelete('${c.manageKey}')" class="score delete"><i class="fa  fa-caret-down"></i></div>
 			</div>
 			<h4 class="b-title">
-			<a href="${basePath}f/v.do?k=${c.manageKey}" target="_blank">
-				${c.title}
-			</a>
+				<a href="${basePath}f/v.do?k=${c.manageKey}" target="_blank">
+					${c.title}
+				</a>
 				<small>
 				<n:pv url="gatherResult/mark.do">
 				<i class="fa fa-heart${c.favourite eq 'Yes'?'':'-o' } fav" onclick="fav('${c.manageKey}',this);"></i>
 				</n:pv>
-				<i><fmt:formatDate value="${c.createTime}" pattern="MM-dd HH:mm"/></i>
 				
 				<a href="../f/index.do?tag=${c.task.manageKey}${not empty all ? '&all=':''}${all}" target="_blank">
 				<span class="info">${c.task.name}</span>
 				</a>
+				<i><fmt:formatDate value="${c.createTime}" pattern="MM-dd HH:mm"/></i>
+				
 				
 				<em>
 				<n:shorthand length="30" content="${c.accessUrl }"></n:shorthand>

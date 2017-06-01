@@ -302,4 +302,5 @@ public UseStatus getStatus(){
 	public void setScoreDeleteIps(String scoreDeleteIps) {
 		this.scoreDeleteIps = scoreDeleteIps;
 	}
+	
 }

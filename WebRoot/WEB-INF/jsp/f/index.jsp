@@ -190,6 +190,8 @@
 						<i class="txt-color-blueLight ">
 						©2017 itkuaibao.cn
 						京ICP备15056042号-2
+						&nbsp;
+						<a href="https://github.com/xooxle/web-subscribe-system" target="_blank" title="check source of this System."><i class="fa fa-github"></i></a>
 						<br/>
 						<br/>
 						 </i>

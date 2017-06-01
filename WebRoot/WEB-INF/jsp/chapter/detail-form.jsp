@@ -1,11 +1,13 @@
 <%@page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-	<section class="col col-3">
+	<section class="col col-12">
 		<label class="input"
 						   <c:if test="${checkResult['title'].changed}">title= "${checkResult['title'].info}";</c:if>
 						   >
 			<span class="${checkResult['title'].changed ? 'change-markup':''}">
 						<spring:message code="props.me.huqiao.wss.chapter.entity.Chapter.title"/>:
-									<c:out value="${tempBean.title}"/>
+					<b>
+					<c:out value="${tempBean.title}"/>
+					</b>
 			</span>
 		</label>
 	</section>
@@ -71,26 +73,6 @@
 	</section>
 	<section class="col col-3">
 		<label class="input"
-						   <c:if test="${checkResult['cover'].changed}">title= "${checkResult['cover'].info}";</c:if>
-						   >
-			<span class="${checkResult['cover'].changed ? 'change-markup':''}">
-						<spring:message code="props.me.huqiao.wss.chapter.entity.Chapter.cover"/>:
-									${tempBean.cover.name}
-			</span>
-		</label>
-	</section>
-	<section class="col col-3">
-		<label class="input"
-						   <c:if test="${checkResult['content'].changed}">title= "${checkResult['content'].info}";</c:if>
-						   >
-			<span class="${checkResult['content'].changed ? 'change-markup':''}">
-						<spring:message code="props.me.huqiao.wss.chapter.entity.Chapter.content"/>:
-									<c:out value="${tempBean.content}"/>
-			</span>
-		</label>
-	</section>
-	<section class="col col-3">
-		<label class="input"
 						   <c:if test="${checkResult['status'].changed}">title= "${checkResult['status'].info}";</c:if>
 						   >
 			<span class="${checkResult['status'].changed ? 'change-markup':''}">
@@ -99,13 +81,23 @@
 			</span>
 		</label>
 	</section>
-	<section class="col col-3">
+	<section class="col col-12">
 		<label class="input"
 						   <c:if test="${checkResult['origin'].changed}">title= "${checkResult['origin'].info}";</c:if>
 						   >
 			<span class="${checkResult['origin'].changed ? 'change-markup':''}">
 						<spring:message code="props.me.huqiao.wss.chapter.entity.Chapter.origin"/>:
 									<c:out value="${tempBean.origin}"/>
+			</span>
+		</label>
+	</section>
+	<section class="col col-12">
+		<label class="input"
+						   <c:if test="${checkResult['content'].changed}">title= "${checkResult['content'].info}";</c:if>
+						   >
+			<span class="${checkResult['content'].changed ? 'change-markup':''}">
+						<spring:message code="props.me.huqiao.wss.chapter.entity.Chapter.content"/>:
+									<c:out value="${tempBean.content}"/>
 			</span>
 		</label>
 	</section>

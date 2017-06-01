@@ -1,5 +1,6 @@
 package me.huqiao.wss.chapter.controller;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,15 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import me.huqiao.wss.chapter.entity.Chapter;
 import me.huqiao.wss.chapter.entity.GatherResult;
 import me.huqiao.wss.chapter.entity.Task;
 import me.huqiao.wss.chapter.entity.propertyeditor.TaskEditor;
+import me.huqiao.wss.chapter.service.IChapterService;
 import me.huqiao.wss.chapter.service.IGatherResultService;
 import me.huqiao.wss.chapter.service.ITaskService;
 import me.huqiao.wss.common.controller.BaseController;
 import me.huqiao.wss.common.entity.Select2;
 import me.huqiao.wss.common.entity.enumtype.UseStatus;
-import me.huqiao.wss.sys.entity.enumtype.YesNo;
 import me.huqiao.wss.util.Md5Util;
 import me.huqiao.wss.util.web.JsonResult;
 import me.huqiao.wss.util.web.Page;
@@ -41,6 +43,8 @@ public class GatherResultController  extends BaseController {
    /**采集结果服务*/
     @Resource
     private IGatherResultService gatherResultService;
+    @Resource
+    private IChapterService chapterService;
  /**
   * 注册属性编辑器
   * @param binder 数据绑定器
@@ -435,5 +439,27 @@ public String tabAddForm(
 			return "already";
 		}
 		return gatherResult.getScore() + "";
+	}
+	
+	@RequestMapping(value = "/fanyi")
+	@ResponseBody
+	public JsonResult fanyi(@ModelAttribute(value="gatherResult") GatherResult gatherResult,
+			HttpServletRequest request){
+		try {
+			Chapter c = new Chapter();
+			c.setTitle("翻译：" + gatherResult.getTitle());
+			c.setContent("TODO 翻译全文\r\n原文地址:["+gatherResult.getAccessUrl()+"](" + gatherResult.getAccessUrl() +")" );
+			c.setManageKey(Md5Util.getManageKey());
+			c.setGatherResultKey(gatherResult.getManageKey());
+			c.setCreateTime(new Date());
+			c.setUpdateTime(c.getCreateTime());
+			c.setCreator(getCurrentUser());
+			c.setOrigin(gatherResult.getAccessUrl());
+			chapterService.add(c);
+			gatherResultService.update(gatherResult);
+			return JsonResult.success("操作成功!");
+		} catch (Exception e) {
+			return JsonResult.error(e.getMessage());
+		}
 	}
 }

@@ -13,9 +13,10 @@
 		<a href="${basePath}gatherResult/view.do?manageKey=${tempBean.manageKey}"  target="_blank" class="link ${tempBean.status eq 'InUse' ? 'a-new' :'a-old'}" style="">
 		${tempBean.title}
 		</a>
-		
+		<br/>
 		<fmt:formatDate value="${tempBean.createTime}" pattern="MM-dd HH:mm"/>
-		
+		|
+		<a href="${basePath}gatherResult/fanyi.do?manageKey=${tempBean.manageKey}" target="ajaxTodo" title="翻译">翻译</a>
 		</td>
 		
 
