@@ -117,3 +117,17 @@
 .score{ 
 	cursor:pointer;
 }
+.chapter-content{
+    font-size: 18px;
+    padding: 0px 25px;
+    line-height: 1.6em;
+    letter-spacing: .08em;
+    vertical-align: middle;
+}
+.chapter-content p{	
+	margin:25px 0px;
+}
+::selection{
+	background: red;
+	color:#fff;
+}

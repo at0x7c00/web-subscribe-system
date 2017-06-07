@@ -36,6 +36,17 @@
 		<!-- FAVICONS -->
 		<link rel="shortcut icon" href="${basePath}img/favicon/${ficon}.ico" type="image/x-icon">
 		<link rel="icon" href="${basePath}img/favicon/${ficon}.ico" type="image/x-icon">
+		<style type="text/css">
+		.fixed{
+		    position: fixed;
+		    bottom: 50px;
+		    right: 5px;
+		    display: inline-block;
+		    border: 1px solid #aaa;
+		    padding: 10px;
+		    cursor: pointer;
+		   }
+		</style>
 
 	</head>
 	
@@ -180,6 +191,11 @@
 		<div class="back-to-top" title="返回顶部"> 
 			<i class="fa fa-arrow-up"></i>
 		</div>
+		
+		<div class="fixed video-camera" title="TV live" style="right:5px;bottom:5px;">
+			<a href="../f/live.do" target="_blank"><i class="fa fa-video-camera"></i></a>
+		</div>
+		
 		<!-- END MAIN PANEL -->
 
 		<!-- PAGE FOOTER -->

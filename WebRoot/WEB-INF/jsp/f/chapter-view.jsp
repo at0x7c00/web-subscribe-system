@@ -132,7 +132,12 @@
 							<hr/>
 							<div class="chapter-content" style="font-size:18px;padding:0px 25px;">
 							<n:html value="${chapter.content}"/>
+							<hr/>
+							<c:if test="${not empty chapter.origin }">
+							原文地址：<a href="${chapter.origin}" target="_blank">${chapter.origin }</a>
+							</c:if>
 							</div>
+							
 				
 							
 						</div>

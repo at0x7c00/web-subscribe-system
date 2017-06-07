@@ -69,5 +69,14 @@ public class FrontendController extends BaseController{
     	gaService.update(gatherResult);
     	return "redirect:" + gatherResult.getAccessUrl();
     }
+	@RequestMapping(value="/live",method=RequestMethod.GET)
+	public String live(@RequestParam(value = "pid",required = false)String pid,
+			HttpServletRequest request){
+		if(StringUtil.isEmpty(pid)){
+			pid = "cctv5";
+		}
+		request.setAttribute("pid", pid);
+		return "f/live";
+	}
     
 }
