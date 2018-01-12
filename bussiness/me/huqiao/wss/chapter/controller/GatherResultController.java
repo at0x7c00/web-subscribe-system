@@ -55,14 +55,14 @@ public class GatherResultController  extends BaseController {
 	}
     //复杂关联关系的Service
     @Resource private ITaskService taskService;
-		/**
-		  * 初始化ModelAttribute
-		  * @param manageKey md5管理ID （非空时自动加载指定对象）
-		  * @param model 页面model对象
-		  * @return GatherResult 采集结果对象
-		  */
-		@ModelAttribute(value="gatherResult")
-		public GatherResult initModelAttribute(@RequestParam(value = "manageKey", required = false) String manageKey, Model model) {
+	/**
+	  * 初始化ModelAttribute
+	  * @param manageKey md5管理ID （非空时自动加载指定对象）
+	  * @param model 页面model对象
+	  * @return GatherResult 采集结果对象
+	  */
+	@ModelAttribute(value="gatherResult")
+	public GatherResult initModelAttribute(@RequestParam(value = "manageKey", required = false) String manageKey, Model model) {
 		GatherResult gatherResult = null;
 		if (manageKey == null ||manageKey.equals("")) {
 			gatherResult = new GatherResult();
@@ -96,9 +96,9 @@ public class GatherResultController  extends BaseController {
      */
 	public void listFormParam(HttpServletRequest request,GatherResult gatherResult,Page pageInfo){
 		//复杂关联关系数据准备
-					List<Task> taskList = taskService.getByProperties(Task.class,null,null,null,null);
-	request.setAttribute("taskList",taskList);
-request.setAttribute("useStatusMap",UseStatus.useStatusMap);
+		List<Task> taskList = taskService.getByProperties(Task.class,null,null,null,null);
+		request.setAttribute("taskList",taskList);
+		request.setAttribute("useStatusMap",UseStatus.useStatusMap);
 	}
     /**
      * 添加采集结果页面
@@ -418,10 +418,8 @@ public String tabAddForm(
 	public String good(@ModelAttribute(value="gatherResult") GatherResult gatherResult,
 			HttpServletRequest request){
 		String ip = request.getRemoteAddr();
-		if(gatherResult.getScoreAddIps()==null || !gatherResult.getScoreAddIps().contains(ip)){
-			gatherResult.addScore(ip);
-			gatherResultService.update(gatherResult);
-			return gatherResult.getScore() + "";
+		if(!gatherResultService.gooded(ip, gatherResult)){
+			return gatherResultService.good(ip, gatherResult)+"";
 		}else{
 			return "already";
 		}
@@ -432,13 +430,11 @@ public String tabAddForm(
 	public String bad(@ModelAttribute(value="gatherResult") GatherResult gatherResult,
 			HttpServletRequest request){
 		String ip = request.getRemoteAddr();
-		if(gatherResult.getScoreDeleteIps()==null || !gatherResult.getScoreDeleteIps().contains(ip)){
-			gatherResult.deleteScore(ip);
-			gatherResultService.update(gatherResult);
+		if(!gatherResultService.baded(ip, gatherResult)){
+			return gatherResultService.bad(ip, gatherResult)+"";
 		}else{
 			return "already";
 		}
-		return gatherResult.getScore() + "";
 	}
 	
 	@RequestMapping(value = "/fanyi")

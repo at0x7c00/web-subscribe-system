@@ -414,4 +414,58 @@ public class DateUtil {
 		return cal.getTime();
 	}
 	
+	public static String howLongBefore(Date date){
+		Date now = new Date();
+		long mSeconds = timeDiff(date, now);
+		long min = mSeconds / (1000 * 60);
+		int mi = 1;
+		int hh = mi * 60;
+		int dd = hh * 24;
+
+		long day = min / dd;
+		long hour = (min - day * dd) / hh;
+		long minute = (min - day * dd - hour * hh) / mi;
+
+		String strDay = "" + day;
+		String strHour = "" + hour;
+		String strMinute = "" + minute;
+		if(day>365){
+			return new Double(day*1.0/365).intValue() + "年前";
+		}else if(day>=30){
+			return new Double(day*1.0/30).intValue() + "个月前";
+		}
+		
+		if (strDay.equals("0")) {
+			strDay="";
+		}else {
+			strDay=strDay+"天前";
+		}
+		if (strHour.equals("0")) {
+			strHour="";
+		}else {
+			strHour=strHour+"小时前";
+		}
+		if (strMinute.equals("0")) {
+			strMinute="刚刚";
+		}else if(minute<5){
+			strMinute="刚刚";
+		}else {
+			strMinute=strMinute+"分钟前";
+		}
+		if(day >= 2){
+			return strDay;
+		}
+		if(day>=1){
+			return "昨天";
+		}
+		if(hour>0){
+			return strHour;
+		}
+		return strMinute;
+	}
+	
+	public static void main(String[] args) throws ParseException {
+		System.out.println(howLongBefore(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2017-09-07 11:56:00")));
+	}
+	
 }

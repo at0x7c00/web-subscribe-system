@@ -57,7 +57,7 @@ public class LoginController extends BaseController {
     public String ntlmAuth(HttpServletRequest request,HttpServletResponse response,HttpSession session){
     	Principal princ = request.getUserPrincipal();
     	if (isLogined()) {
-			return "redirect:index.do";
+			return "redirect:/adminIndex.do";
 		}
     	if(princ!=null){
     		session.setAttribute("princpalNameInSession", princ.getName());
@@ -81,7 +81,7 @@ public class LoginController extends BaseController {
      * @param session HttpSession对象
      * @return String jsp显示路径
      */
-    @RequestMapping("/index")
+    @RequestMapping("/adminIndex")
     public String adminIndex(HttpServletRequest request,HttpServletResponse response,HttpSession session){
     	if(!response.isCommitted()){
 			if (isLogined()) {
@@ -129,8 +129,13 @@ public class LoginController extends BaseController {
 						log.info("用户:"+loginName+" 是普通用户，通过本地密码验证登录成功。");
 						user.recordLoginTime(new Date());
 						userService.update(user);
-						mav.setViewName("redirect:index.do");//本地登录成功
-						request.getSession().setAttribute(Constants.FORM_URL_INSESSION, request.getParameter("from"));
+						String from = request.getParameter("from");
+						if("index".equals(from)){
+							mav.setViewName("redirect:/index.do");//本地登录成功
+						}else{
+							mav.setViewName("redirect:/adminIndex.do");//本地登录成功
+						}
+						request.getSession().setAttribute(Constants.FORM_URL_INSESSION, from);
 					}else{
 						mav.addObject("passwordError", "用户名或密码错误！");
 						mav.addObject("hide",null);

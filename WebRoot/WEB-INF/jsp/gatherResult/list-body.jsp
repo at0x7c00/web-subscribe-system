@@ -17,6 +17,12 @@
 		<fmt:formatDate value="${tempBean.createTime}" pattern="MM-dd HH:mm"/>
 		|
 		<a href="${basePath}gatherResult/fanyi.do?manageKey=${tempBean.manageKey}" target="ajaxTodo" title="翻译">翻译</a>
+		
+		&nbsp; 
+		<c:forEach items="${tempBean.tags }" var="tag">
+			<code style="border:1px solid #ddd;padding:2px;">${tag.name}</code>
+		</c:forEach>
+		
 		</td>
 		
 

@@ -117,6 +117,10 @@
 				<div id="fullscreen" class="btn-header transparent pull-right">
 					<span> <a href="javascript:void(0);" onclick="launchFullscreen(document.documentElement);" title="全屏"><i class="fa fa-fullscreen"></i></a> </span>
 				</div>
+				
+				<div id="home" class="btn-header transparent pull-right">
+					<span> <a href="${basePath}index.do" ><i class="fa fa-home"></i></a> </span>
+				</div>
 				<!-- 全屏按钮 -->
 
 				<!-- 多语言切换
@@ -498,6 +502,10 @@
 			min-height: 180px;
 		}
 		</style>
+		
+		
+		
 	</body>
+	
 
 </html>

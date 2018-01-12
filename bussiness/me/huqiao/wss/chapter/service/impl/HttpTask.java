@@ -2,8 +2,10 @@ package me.huqiao.wss.chapter.service.impl;
 
 import java.net.URL;
 import java.util.Date;
+import java.util.HashSet;
 
 import me.huqiao.wss.chapter.entity.GatherResult;
+import me.huqiao.wss.chapter.entity.Tag;
 import me.huqiao.wss.chapter.entity.Task;
 import me.huqiao.wss.chapter.entity.enumtype.TaskStatus;
 import me.huqiao.wss.chapter.service.IGatherResultService;
@@ -41,7 +43,7 @@ public class HttpTask implements Runnable {
 		
 		Date now = new Date();
 		task.setStatus(TaskStatus.Executing);
-		taskService.update(task);
+		//taskService.update(task);
 		
 		String urlPath = task.getUrl();
 		
@@ -58,7 +60,7 @@ public class HttpTask implements Runnable {
 			
 			for(Element e :doc.select(task.getSelector())){
 				String href = e.attr("href");
-				String title = e.html();
+				String title = e.text();
 				GatherResult gr = new GatherResult();
 				gr.setCreateTime(new Date());
 				gr.setManageKey(Md5Util.getManageKey());
@@ -66,6 +68,15 @@ public class HttpTask implements Runnable {
 				gr.setTask(task);
 				gr.setTitle(title);
 				gr.setUrl(href);
+				
+				HashSet<Tag> tags = new HashSet<Tag>();
+				if(task.getTags()!=null){
+					for(Tag tag : task.getTags()){
+						tags.add(tag);
+					}
+				}
+				gr.setTags(tags);
+				
 				if(task.getMarkAsFav()==YesNo.Yes){
 					gr.setFavourite(YesNo.Yes);
 				}
@@ -81,7 +92,7 @@ public class HttpTask implements Runnable {
 			task.setStatus(TaskStatus.Scheduled);
 			
 		}catch(Exception e){
-			//e.printStackTrace();
+			e.printStackTrace();
 			StringBuffer s = new StringBuffer();
 			s.append(e.getMessage()).append("\r\n");
 			for(StackTraceElement ste : e.getStackTrace()){

@@ -10,6 +10,10 @@
 		</span>
 		</a>
 		<span class="label label-info hspan" >${tempBean.selector}</span>&nbsp;&nbsp;<i class="fa fa-clock-o"></i> ${tempBean.cycle} min
+		&nbsp;
+		<c:forEach items="${tempBean.tags }" var="tag">
+			<code style="border:1px solid #ddd;padding:2px;">${tag.name}</code>
+		</c:forEach>
 		</td>
 		<td>
 	<c:choose>

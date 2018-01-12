@@ -47,4 +47,9 @@ public interface IGatherResultService extends IBaseService<GatherResult> {
 	 */
 	List<GatherResult> queryById(Integer[] ids);
 	public boolean existed(GatherResult gr);
+	
+	public boolean gooded(String ip,GatherResult gr);
+	public boolean baded(String ip,GatherResult gr);
+	public Long good(String ip,GatherResult gr);
+	public Long bad(String ip,GatherResult gr);
 }

@@ -34,7 +34,13 @@ public class PrivilegeValidateInterceptor extends HandlerInterceptorAdapter {
     	"loginOut.do",// 退出
     	"auth.do",
     	"admin/index.do",
+    	"adminIndex.do",
     	"index.do",
+    	"v/",
+    	"site/",
+    	"tag/",
+    	"v.do",
+    	"tag.do",
     	"frontend/",
     	"user/userUploadPhoto.do",
     	"user/updatePhoto.do",
@@ -43,6 +49,7 @@ public class PrivilegeValidateInterceptor extends HandlerInterceptorAdapter {
     	"filee/viewPic.do",
     	"filee/downloadFile.do",
     	"f/",
+    	"index/",
     	"gatherResult/score/",
 	};
 	private static final String[] urlsWithLogin = new String[] {// 只需要登录就能拥有的权限

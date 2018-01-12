@@ -8,7 +8,7 @@
 				<div onclick="scoreDelete('${c.manageKey}')" class="score delete"><i class="fa  fa-caret-down"></i></div>
 			</div>
 			<h4 class="b-title">
-				<a href="${basePath}f/v.do?k=${c.manageKey}" target="_blank">
+				<a href="${basePath}v/${c.manageKey}.do" target="_blank">
 					${c.title}
 				</a>
 				<small>
@@ -16,17 +16,23 @@
 				<i class="fa fa-heart${c.favourite eq 'Yes'?'':'-o' } fav" onclick="fav('${c.manageKey}',this);"></i>
 				</n:pv>
 				
-				<a href="../f/index.do?tag=${c.task.manageKey}${not empty all ? '&all=':''}${all}" target="_blank">
+				<a href="${basePath}site/${c.task.manageKey}${not empty all ? '/':''}${all}.do">
 				<span class="info">${c.task.name}</span>
 				</a>
-				<i><fmt:formatDate value="${c.createTime}" pattern="MM-dd HH:mm"/></i>
+				<span title="<fmt:formatDate value="${c.createTime}" pattern="MM-dd HH:mm"/>">${c.createTimeStr }</span>
 				
+				 &nbsp; 
+				<c:forEach items="${c.tags }" var="tag">
+					<code  class="tag used" id="${c.manageKey}" gid="${tag.manageKey}">${tag.name}</code>
+				</c:forEach>
 				
-				<em>
-				<n:shorthand length="30" content="${c.accessUrl }"></n:shorthand>
-				&nbsp;
-				&nbsp;
-				</em>
+				<c:if test="${not empty  LOGIN_INFO_IN_SESSION}">
+				<c:forEach items="${c.task.tags }" var="tag">
+					<c:if test="${not(fn:contains(c.tags,tag))}">
+						<code class="tag unused" id="${c.manageKey}" gid="${tag.manageKey}">${tag.name}</code>
+					</c:if>
+				</c:forEach>
+				</c:if>
 				</small>
 			</h4>
 		</td>
@@ -42,7 +48,7 @@
 				</div>
 			<%--
 			by 
-				<a href="../f/index.do?tag=${c.task.manageKey}${not empty all ? '&all=':''}${all}" target="_blank">
+				<a href="../index.do?tag=${c.task.manageKey}${not empty all ? '&all=':''}${all}" target="_blank">
 				<span class="info">${c.task.name}</span>
 				</a>
 				<br>

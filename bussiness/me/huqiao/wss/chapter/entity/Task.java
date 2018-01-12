@@ -1,12 +1,20 @@
 package me.huqiao.wss.chapter.entity;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -14,6 +22,11 @@ import me.huqiao.wss.chapter.entity.enumtype.TaskStatus;
 import me.huqiao.wss.sys.entity.enumtype.YesNo;
 
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.springframework.context.annotation.Lazy;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * 采集任务
@@ -65,6 +78,9 @@ public class Task {
 	private TaskStatus status;
 	
 	private YesNo markAsFav;
+	
+	
+	private Set<Tag> tags;
 	
 	/** @return String MD5管理ID */
 	public String getManageKey() {
@@ -253,5 +269,21 @@ public class Task {
 	public void setMarkAsFav(YesNo markAsFav) {
 		this.markAsFav = markAsFav;
 	}
+
+	@ManyToMany(targetEntity = Tag.class, cascade = { CascadeType.MERGE },fetch = FetchType.EAGER)
+	@JoinTable(name = "lnk_task_tag", joinColumns = { @JoinColumn(name = "task_id") }, inverseJoinColumns = { @JoinColumn(name = "tag_id") })
+	@OrderBy("id")
+	@Lazy(value = false)
+	@JsonIgnore
+	@Fetch(FetchMode.SELECT)
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+	
+	
 	
 }

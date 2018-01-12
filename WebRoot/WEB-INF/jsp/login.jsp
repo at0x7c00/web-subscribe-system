@@ -114,6 +114,7 @@
 					<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 login_form">
 						<div class="well no-padding">
 							<form action="login.do" id="login-form" class="smart-form client-form" method="POST">
+								<input type="hidden" value="${from}" name="from">
 								<header>
 									<spring:message code="base.common.login.dialogtitle"></spring:message>
 								</header>

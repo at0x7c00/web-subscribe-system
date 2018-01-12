@@ -1,9 +1,12 @@
 package me.huqiao.wss.chapter.dao.impl;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import me.huqiao.wss.chapter.dao.IGatherResultDao;
 import me.huqiao.wss.chapter.entity.GatherResult;
+import me.huqiao.wss.chapter.entity.Tag;
 import me.huqiao.wss.common.dao.impl.BaseDaoImpl;
 import me.huqiao.wss.history.entity.HistoryRecord;
 import me.huqiao.wss.history.entity.TestRevisionEntity;
@@ -21,6 +24,7 @@ import org.hibernate.envers.RevisionType;
 import org.hibernate.envers.query.AuditEntity;
 import org.hibernate.envers.query.AuditQuery;
 import org.hibernate.envers.query.AuditQueryCreator;
+import org.hibernate.sql.JoinType;
 import org.springframework.stereotype.Repository;
 /**
  * 采集结果DAO实现
@@ -33,7 +37,8 @@ public class GatherResultDaoImpl extends BaseDaoImpl<GatherResult> implements IG
     public Long findListRowCount(GatherResult gatherResult) {
         Criteria criteria = getSession().createCriteria(GatherResult.class).setProjection(Projections.rowCount());
         queryCause(criteria,gatherResult);
-        return (Long) criteria.uniqueResult();
+        long res = (Long) criteria.uniqueResult();
+        return res;
     }
 	@Override
 	public Long findHistoryListRowCount(GatherResult gatherResult,Page pageInfo) {
@@ -59,7 +64,8 @@ public class GatherResultDaoImpl extends BaseDaoImpl<GatherResult> implements IG
          }else{
          	criteria.addOrder(Order.asc("id")); 
          }
-        return criteria.list();
+        List<GatherResult> res = criteria.list();
+        return res;
     }
 	@SuppressWarnings("unchecked")
 	@Override
@@ -139,6 +145,19 @@ criteria.add(Restrictions.le("createTime",gatherResult.getCreateTimeEnd()));
 }
        if(gatherResult.getFavourite()!=null){
     	   criteria.add(Restrictions.eqOrIsNull("favourite", gatherResult.getFavourite()));
+       }
+       if(gatherResult.getTags()!=null && !gatherResult.getTags().isEmpty()){
+    	   	Set<Integer> idSet = new HashSet<Integer>();
+			for (Tag r :gatherResult.getTags()) {
+				if(r==null){
+					continue;
+				}
+				idSet.add(r.getId());
+			}
+			if(!idSet.isEmpty()){
+				criteria.createAlias("tags", "tag", JoinType.LEFT_OUTER_JOIN);
+				criteria.add(Restrictions.in("tag.id", idSet));
+			}
        }
     }
 	@Override

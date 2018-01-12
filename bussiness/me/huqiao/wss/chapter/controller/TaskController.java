@@ -1,5 +1,6 @@
 package me.huqiao.wss.chapter.controller;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import me.huqiao.wss.chapter.entity.Tag;
 import me.huqiao.wss.chapter.entity.Task;
+import me.huqiao.wss.chapter.service.ITagService;
 import me.huqiao.wss.chapter.service.ITaskService;
 import me.huqiao.wss.common.controller.BaseController;
 import me.huqiao.wss.common.entity.Select2;
@@ -37,6 +40,8 @@ public class TaskController  extends BaseController {
    /**采集任务服务*/
     @Resource
     private ITaskService taskService;
+    @Resource
+    private ITagService tagService;
  /**
   * 注册属性编辑器
   * @param binder 数据绑定器
@@ -109,10 +114,22 @@ public class TaskController  extends BaseController {
     @ResponseBody
     public JsonResult add(HttpServletRequest request,
 	@Valid @ModelAttribute("task") Task task,
+	@RequestParam(value="tagsKeys",required=false)String[] tagsKeys,
 	@RequestParam(value = "callBack",required = false)String callBack,
 	BindingResult result) {
     	JsonResult jsonResult = new JsonResult();
     	task.setManageKey(Md5Util.getManageKey());
+    	
+    	HashSet<Tag> tags = new HashSet<Tag>();
+		if(tagsKeys!=null){
+			for(String key : tagsKeys){
+			if(key==null || key.trim().equals("")) continue;
+			Tag tmp = tagService.getEntityByProperty(Tag.class, "manageKey", key);
+			tags.add(tmp);
+			}
+		}
+		task.setTags(tags);
+    	
     	taskService.add(task);
     	taskService.updateToStart(task);
         jsonResult.setMessage(getI18NMessage(request, "base.common.controller.operate.add.success"));
@@ -140,16 +157,27 @@ public class TaskController  extends BaseController {
     @RequestMapping(value="/update",method=RequestMethod.POST)
     @ResponseBody
     public JsonResult update(HttpServletRequest request,
+    		@RequestParam(value="tagsKeys",required=false)String[] tagsKeys,
 	@ModelAttribute(value="task") Task task,
 	BindingResult result) {
     	JsonResult jsonResult = new JsonResult();
     	if(!validate(jsonResult,result)){
     		return jsonResult;
     	}
-	    //保存多对多关联关系
-		//保持一对多关联关系
-        taskService.update(task);
-	// jsonResult.setNavTabId(rel);
+        
+      //设置标签
+  		HashSet<Tag> tags = new HashSet<Tag>();
+  		if(tagsKeys!=null){
+  			for(String key : tagsKeys){
+  				if(key==null || key.trim().equals("")) continue;
+  				Tag tmp = tagService.getEntityByProperty(Tag.class, "manageKey", key);
+  				tags.add(tmp);
+  			}
+  		}
+  		task.getTags().clear();
+  		task.getTags().addAll(tags);
+  		taskService.update(task);
+      		
         jsonResult.setMessage(getI18NMessage(request, "base.common.controller.operate.update.success"));
         return jsonResult;
     }
