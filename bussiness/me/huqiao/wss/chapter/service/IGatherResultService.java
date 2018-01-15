@@ -52,4 +52,6 @@ public interface IGatherResultService extends IBaseService<GatherResult> {
 	public boolean baded(String ip,GatherResult gr);
 	public Long good(String ip,GatherResult gr);
 	public Long bad(String ip,GatherResult gr);
+	
+	public GatherResult nextToCheck(Integer afterId) ;
 }

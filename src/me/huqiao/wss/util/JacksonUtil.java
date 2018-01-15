@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import me.huqiao.wss.websocket.Message;
+
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -31,5 +33,9 @@ public class JacksonUtil {
 	
 	public static Object json2Object(String json,Class type) throws JsonParseException, JsonMappingException, IOException{
 		return objectMapper.readValue(json, type);
+	}
+
+	public static String transferToJsonString(Message message) throws Exception {
+		return object2Json(message);
 	}
 }

@@ -7,6 +7,7 @@ import java.util.Set;
 import me.huqiao.wss.chapter.dao.IGatherResultDao;
 import me.huqiao.wss.chapter.entity.GatherResult;
 import me.huqiao.wss.chapter.entity.Tag;
+import me.huqiao.wss.chapter.entity.enumtype.CheckStatus;
 import me.huqiao.wss.common.dao.impl.BaseDaoImpl;
 import me.huqiao.wss.history.entity.HistoryRecord;
 import me.huqiao.wss.history.entity.TestRevisionEntity;
@@ -146,6 +147,9 @@ criteria.add(Restrictions.le("createTime",gatherResult.getCreateTimeEnd()));
        if(gatherResult.getFavourite()!=null){
     	   criteria.add(Restrictions.eqOrIsNull("favourite", gatherResult.getFavourite()));
        }
+       if(gatherResult.getCheckStatus()!=null){
+    	   criteria.add(Restrictions.eqOrIsNull("checkStatus", gatherResult.getCheckStatus()));
+       }
        if(gatherResult.getTags()!=null && !gatherResult.getTags().isEmpty()){
     	   	Set<Integer> idSet = new HashSet<Integer>();
 			for (Tag r :gatherResult.getTags()) {
@@ -196,5 +200,24 @@ criteria.add(Restrictions.le("createTime",gatherResult.getCreateTimeEnd()));
 		Query query = getSession().createQuery("select gr from me.huqiao.wss.chapter.entity.GatherResult gr where gr.title=:title");
 		query.setParameter("title", gr.getTitle());
 		return query.list().size()>0;
+	}
+	@Override
+	public GatherResult nextToCheck(Integer afterId) {
+		StringBuffer hql = new StringBuffer("select gr from me.huqiao.wss.chapter.entity.GatherResult gr where gr.checkStatus=:status ");
+		if(afterId!=null){
+			hql.append(" and gr.id>:afterId");
+		}
+		hql.append(" order by gr.id asc");
+		Query query = getSession().createQuery(hql.toString());
+		query.setParameter("status", CheckStatus.Uncheck);
+		query.setMaxResults(1);
+		if(afterId!=null){
+			query.setParameter("afterId", afterId);
+		}
+		List<GatherResult> list = query.list();
+		if(list.size()>0){
+			return list.get(0);
+		}
+		return null;
 	}
 }

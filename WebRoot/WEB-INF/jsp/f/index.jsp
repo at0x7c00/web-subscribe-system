@@ -81,6 +81,101 @@
 		
 		<%@include file="/WEB-INF/jsp/f/common/footer.jsp" %>
 		<%@include file="/WEB-INF/jsp/f/common/footer-rs.jsp" %>
+		<script type="text/javascript">
+	    var loadInt = null;
+		$(function(){
+				var scrollTop = $(window).scrollTop();
+				menuDisplay(scrollTop);
+				$(window).bind("scroll",function() {
+					aaa();
+				});
+				
+				toastr.options = {
+				  "closeButton": false,
+				  "debug": false,
+				  "newestOnTop": false,
+				  "progressBar": false,
+				  "positionClass": "toast-top-right",
+				  "preventDuplicates": true,
+				  "onclick": null,
+				  "showDuration": "300",
+				  "hideDuration": "1000",
+				  "timeOut": "3000",
+				  "extendedTimeOut": "1000",
+				  "showEasing": "swing",
+				  "hideEasing": "linear",
+				  "showMethod": "fadeIn",
+				  "hideMethod": "fadeOut"
+				};
+				
+				initUI($(document));
+		});
+		
+		function aaa(){
+			var windowWidth = $(window).width();
+			var wellWidth = $(".well").width();
+			var scrollTop = $(window).scrollTop();
+			if(scrollTop<50) {  
+	            $('.back-to-top').fadeOut(300)  
+	        }else {  
+	            $('.back-to-top').fadeIn(300)  
+	        }  
+			
+		   if($(window).scrollTop() + $(window).height() == $(document).height()) {
+			   if(loadInt!=null){
+				   window.clearTimeout(loadInt);
+				   loadInt = null;
+			   }
+			   loadInt =  window.setTimeout(function(){
+				   getNewPage();
+			   },100);
+		   }
+		   menuDisplay(scrollTop);
+		}
+		function menuDisplay(s){
+				if(s>50){
+				     $(".task-list").addClass("out");
+				}else{
+					 $(".task-list").removeClass("out");
+				}
+		}
+		function getNewPage(){
+			var pageNum = parseInt($("#pageNum").val())+1;
+			//console.log("p="+pageNum+",t="+$("#totalPageNum").val())
+			if(parseInt(pageNum)>parseInt($("#totalPageNum").val())){
+				showNoRecord();
+				return;
+			}
+			 displayLodading();
+			 var params = '';
+			 var data = $("#post-form").serializeArray();
+			 for(var k in data){
+				 var p = data[k];
+				 if(p.name == 'pageNum'){
+					 continue;
+				 }
+				 params += "&" + p.name+"=" + p.value;
+			 }
+			 url = "${basePath}index.do?ajax=true&pageNum=" + pageNum + params;
+			$.get(url,function(d){
+				//console.log(d)
+				var content = $(d);
+				content.insertAfter($("#post-table tbody tr:last-child"));
+				initUI(content);
+				$("#pageNum").val(parseInt($("#pageNum").val())+1);
+				hideLoading();
+			});
+		}
+		function displayLodading(){
+			$("#loading").show();
+		}
+		function hideLoading(){
+			$("#loading").hide();
+		}
+		function showNoRecord(){
+			$("#no-record-div").show();
+		}
+		</script>
 	</body>
 
 </html>

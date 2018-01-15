@@ -49,6 +49,7 @@ public class PrivilegeValidateInterceptor extends HandlerInterceptorAdapter {
     	"filee/viewPic.do",
     	"filee/downloadFile.do",
     	"f/",
+    	"lab/",
     	"index/",
     	"gatherResult/score/",
 	};
@@ -100,6 +101,10 @@ public class PrivilegeValidateInterceptor extends HandlerInterceptorAdapter {
         LoginInfo loginInfo = (LoginInfo)request.getSession().getAttribute(Constants.LOGIN_INFO_IN_SESSION);
         
         request.setAttribute("file_format_picture", ".jpg,.jpeg,.png,.bmp,.gif");
+        
+        
+       String sid = request.getSession().getId();
+        request.setAttribute("accountName", sid);
         
         /*if(1==1){
         	 return super.preHandle(request, response, handler);

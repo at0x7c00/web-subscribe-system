@@ -72,4 +72,6 @@ public interface IGatherResultDao extends IBaseDao<GatherResult> {
 	List<GatherResult> findById(Integer[] ids);
 	
 	boolean existed(GatherResult gr);
+	
+	GatherResult nextToCheck(Integer afterId);
 }

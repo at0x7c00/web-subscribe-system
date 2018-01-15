@@ -11,12 +11,14 @@ import me.huqiao.wss.chapter.entity.Chapter;
 import me.huqiao.wss.chapter.entity.GatherResult;
 import me.huqiao.wss.chapter.entity.Tag;
 import me.huqiao.wss.chapter.entity.Task;
+import me.huqiao.wss.chapter.entity.enumtype.CheckStatus;
 import me.huqiao.wss.chapter.service.IChapterService;
 import me.huqiao.wss.chapter.service.IGatherResultService;
 import me.huqiao.wss.chapter.service.ITagService;
 import me.huqiao.wss.chapter.service.ITaskService;
 import me.huqiao.wss.common.entity.enumtype.UseStatus;
 import me.huqiao.wss.sys.entity.enumtype.YesNo;
+import me.huqiao.wss.util.Constants;
 import me.huqiao.wss.util.StringUtil;
 import me.huqiao.wss.util.web.JsonResult;
 import me.huqiao.wss.util.web.Page;
@@ -123,6 +125,19 @@ public class FrontendController{
 		GatherResult gatherResult = gaService.getEntityByProperty(GatherResult.class, "manageKey", key);
 		if(gatherResult==null){
 			return "redirect:f/index.do";
+		}
+		if(gatherResult.getHasConent()==YesNo.Yes || StringUtil.isNotEmpty(request.getParameter("forCheck"))){
+			request.setAttribute("gr", gatherResult);
+			if(request.getSession().getAttribute(Constants.LOGIN_INFO_IN_SESSION)!=null){
+	    		List<Tag> tags = tagService.findAll(Tag.class);
+	    		request.setAttribute("tags", tags);
+	    		Page<GatherResult> pageInfo = new Page<GatherResult>();
+	    		GatherResult query = new GatherResult();
+	    		query.setCheckStatus(CheckStatus.Uncheck);
+	    		pageInfo = gaService.getListPage(query, pageInfo);
+	    		request.setAttribute("uncheckdGrSize", pageInfo.getTotalCount());
+	    	}
+			return "f/gatherResult-view";
 		}
 		Chapter c = chapterService.getEntityByProperty(Chapter.class, "gatherResultKey", gatherResult.getManageKey());
 		if(c!=null){

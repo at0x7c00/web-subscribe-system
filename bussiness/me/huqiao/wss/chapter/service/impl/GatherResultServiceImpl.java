@@ -32,7 +32,7 @@ public class GatherResultServiceImpl extends BaseServiceImpl<GatherResult> imple
 		List<GatherResult> list = gatherResultDao.findListPage(gatherResult,pageInfo);
 		for(GatherResult gr : list){
 			String scoreStr = redisService.get("chapter:" + gr.getId());
-			Integer score = scoreStr == null ? 0 : Integer.parseInt(scoreStr);
+			Integer score = scoreStr == null || scoreStr.trim().equals("") ? 0 : Integer.parseInt(scoreStr);
 			gr.setScore(score);
 		}
 		pageInfo.setList(list);
@@ -100,5 +100,9 @@ public class GatherResultServiceImpl extends BaseServiceImpl<GatherResult> imple
 		}else{
 			return redisService.decrement("chapter:" + gr.getId());
 		}
+	}
+	@Override
+	public GatherResult nextToCheck(Integer afterId) {
+		return gatherResultDao.nextToCheck(afterId);
 	}
 }

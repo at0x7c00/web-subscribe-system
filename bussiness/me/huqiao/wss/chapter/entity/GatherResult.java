@@ -19,6 +19,7 @@ import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import me.huqiao.wss.chapter.entity.enumtype.CheckStatus;
 import me.huqiao.wss.common.entity.enumtype.UseStatus;
 import me.huqiao.wss.sys.entity.enumtype.YesNo;
 import me.huqiao.wss.util.DateUtil;
@@ -68,6 +69,10 @@ private YesNo favourite;
 
 private Set<Tag> tags;
 
+private YesNo hasConent;
+private String content;
+private CheckStatus checkStatus;
+
 	/**MD5管理ID*/
 	protected String manageKey;
 	/**@return String MD5管理ID */
@@ -106,7 +111,18 @@ public String getAccessUrl(){
 		if(this.isRootRelativeUrl()){
 			return  this.getTask().getRootUrl() +  this.getUrl();
 		}else{
-			return  this.getTask().getUrl() +  this.getUrl();
+			String baseUrl = this.getTask().getUrl();
+			String url = this.getUrl();
+			while(url.startsWith("../")){
+				url = url.substring(3);
+				if(baseUrl.lastIndexOf("/")>7){
+					baseUrl = baseUrl.substring(0,baseUrl.lastIndexOf("/"));
+				}
+			}
+			if(url.startsWith("./")){
+				url = url.substring(2);
+			}
+			return  baseUrl +"/"+  url;
 		}
 	}else{
 		return  this.getUrl();
@@ -329,6 +345,31 @@ public UseStatus getStatus(){
 	@Transient
 	public String getCreateTimeStr(){
 		return DateUtil.howLongBefore(getCreateTime());
+	}
+	
+	@Column(name="has_content",nullable=true,columnDefinition="enum('Yes','No')")
+	@Enumerated(EnumType.STRING)
+	public YesNo getHasConent() {
+		return hasConent;
+	}
+	public void setHasConent(YesNo hasConent) {
+		this.hasConent = hasConent;
+	}
+	@Column(name = "content", length = 255, columnDefinition = "text", nullable = true)
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	
+	@Column(name="check_status",nullable=true,columnDefinition="enum('Uncheck','Recommend','Discard')")
+	@Enumerated(EnumType.STRING)
+	public CheckStatus getCheckStatus() {
+		return checkStatus;
+	}
+	public void setCheckStatus(CheckStatus checkStatus) {
+		this.checkStatus = checkStatus;
 	}
 	
 	

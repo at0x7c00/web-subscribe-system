@@ -7,6 +7,7 @@ import java.util.HashSet;
 import me.huqiao.wss.chapter.entity.GatherResult;
 import me.huqiao.wss.chapter.entity.Tag;
 import me.huqiao.wss.chapter.entity.Task;
+import me.huqiao.wss.chapter.entity.enumtype.CheckStatus;
 import me.huqiao.wss.chapter.entity.enumtype.TaskStatus;
 import me.huqiao.wss.chapter.service.IGatherResultService;
 import me.huqiao.wss.chapter.service.ITaskService;
@@ -79,16 +80,25 @@ public class HttpTask implements Runnable {
 				
 				if(task.getMarkAsFav()==YesNo.Yes){
 					gr.setFavourite(YesNo.Yes);
+					gr.setCheckStatus(CheckStatus.Recommend);
+				}else{
+					gr.setCheckStatus(CheckStatus.Uncheck);
 				}
 				if(!grService.existed(gr)){
 					grService.add(gr);
+					WebPageCollectorExecutor.addExecute(new WebPageCollector(gr));
 				}
 				
 				res += title + ",";
 			}
 			
 			res = (oldRes==null ? "" : (oldRes + "\r\n")) +"["+DateUtil.formatDate(now,"yyyy-MM-dd HH:mm:ss")+"]" + url + ":" + res;
-			task.setLog(res);
+			String logs = res;
+			if(logs!=null && logs.length()>1024){
+				task.setLog("...\r\n"+logs.substring(logs.length() - 1024,logs.length())+ "\r\n");
+			}else{
+				task.setContentSelector(logs);
+			}
 			task.setStatus(TaskStatus.Scheduled);
 			
 		}catch(Exception e){

@@ -73,6 +73,7 @@ public class Task {
 	protected String manageKey;
 	
 	private String log;
+	private String contentSelector;
 	
 	/** 状态 */
 	private TaskStatus status;
@@ -257,6 +258,10 @@ public class Task {
 	}
 
 	public void addLog(String log) {
+		String logs = getLog();
+		if(logs!=null && logs.length()>1024){
+			this.setLog("...\r\n"+logs.substring(logs.length() - 1024,logs.length())+ "\r\n");
+		}
 		this.setLog((this.getLog()==null ?"" : this.getLog()) + "\r\n" + log);
 	}
 
@@ -282,6 +287,15 @@ public class Task {
 
 	public void setTags(Set<Tag> tags) {
 		this.tags = tags;
+	}
+
+	@Column(name = "content_selector",nullable = true)
+	public String getContentSelector() {
+		return contentSelector;
+	}
+
+	public void setContentSelector(String contentSelector) {
+		this.contentSelector = contentSelector;
 	}
 	
 	

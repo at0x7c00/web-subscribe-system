@@ -30,6 +30,15 @@
 				</section>
 				<section class="col col-3">
 					<label class="input">
+						内容选择器:
+							<form:input path="contentSelector"
+											id="task.contentSelector"
+											cssClass="textInput"
+											maxlength="255" />
+					</label>
+				</section>
+				<section class="col col-3">
+					<label class="input">
 						<spring:message code="props.me.huqiao.wss.chapter.entity.Task.cycle"/>:
 								<form:input path="cycle"
 									id="task.cycle" type="text"

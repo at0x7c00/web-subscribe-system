@@ -2,6 +2,7 @@ package me.huqiao.wss.chapter.controller;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -10,15 +11,19 @@ import javax.validation.Valid;
 
 import me.huqiao.wss.chapter.entity.Chapter;
 import me.huqiao.wss.chapter.entity.GatherResult;
+import me.huqiao.wss.chapter.entity.Tag;
 import me.huqiao.wss.chapter.entity.Task;
+import me.huqiao.wss.chapter.entity.enumtype.CheckStatus;
 import me.huqiao.wss.chapter.entity.propertyeditor.TaskEditor;
 import me.huqiao.wss.chapter.service.IChapterService;
 import me.huqiao.wss.chapter.service.IGatherResultService;
+import me.huqiao.wss.chapter.service.ITagService;
 import me.huqiao.wss.chapter.service.ITaskService;
 import me.huqiao.wss.common.controller.BaseController;
 import me.huqiao.wss.common.entity.Select2;
 import me.huqiao.wss.common.entity.enumtype.UseStatus;
 import me.huqiao.wss.util.Md5Util;
+import me.huqiao.wss.util.StringUtil;
 import me.huqiao.wss.util.web.JsonResult;
 import me.huqiao.wss.util.web.Page;
 
@@ -45,6 +50,8 @@ public class GatherResultController  extends BaseController {
     private IGatherResultService gatherResultService;
     @Resource
     private IChapterService chapterService;
+    @Resource
+    private ITagService tagService;
  /**
   * 注册属性编辑器
   * @param binder 数据绑定器
@@ -457,5 +464,59 @@ public String tabAddForm(
 		} catch (Exception e) {
 			return JsonResult.error(e.getMessage());
 		}
+	}
+	@RequestMapping(value = "/hasTag")
+	@ResponseBody
+	public String hasTag(@ModelAttribute(value="gatherResult") GatherResult gatherResult,@RequestParam("tagid")Integer tagId){
+		Tag tag = tagService.getById(Tag.class, tagId);
+		return gatherResult.getTags()!=null && gatherResult.getTags().contains(tag) ? "Yes" : "No";
+	}
+			
+			
+	
+	@RequestMapping(value = "/updateTag")
+	@ResponseBody
+	public JsonResult updateTag(@ModelAttribute(value="gatherResult") GatherResult gatherResult,
+			@RequestParam("tagid")Integer tagId,
+			@RequestParam("op")String op,
+			HttpServletRequest request){
+		try {
+			Tag tag = tagService.getById(Tag.class, tagId);
+			if(tag!=null){
+				Set<Tag> tags = gatherResult.getTags();
+				if(op.equals("remove")){
+					tags.remove(tag);
+				}else if(op.equals("add")){
+					tags.add(tag);
+				}
+			}
+			gatherResultService.update(gatherResult);
+			return JsonResult.success("操作成功!");
+		} catch (Exception e) {
+			return JsonResult.error(e.getMessage());
+		}
+	}
+	
+	@RequestMapping(value = "/startToCheck")
+	public String startToCheck(){
+		String nextKey = doCheck(null,null);
+		if("OK".equals(nextKey)){
+			return "f/noGrToCheck";
+		}
+		return "redirect:/v/" + nextKey + ".do?forCheck=yes";
+	}
+	
+	@RequestMapping(value = "/doCheck")
+	@ResponseBody
+	public String doCheck(@RequestParam(value = "currentId",required = false)Integer currentId,
+			@RequestParam(value = "currentDispose",required = false) CheckStatus currentDispose
+			){
+		if(currentId!=null){
+			GatherResult cgr =  gatherResultService.getById(GatherResult.class, currentId);
+			cgr.setCheckStatus(currentDispose);
+			gatherResultService.update(cgr);
+		}
+		GatherResult gr =  gatherResultService.nextToCheck(currentId);
+		return gr==null ? "OK" : gr.getManageKey();
 	}
 }
